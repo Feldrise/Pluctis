@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "219732252842",
+    "firebase_url": "https://pluctis.firebaseio.com",
+    "project_id": "pluctis",
+    "storage_bucket": "pluctis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219732252842:android:4075639e3feeec2284d8d3",
+        "android_client_info": {
+          "package_name": "com.feldrise.pluctis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219732252842-6tkjg9sp5kffqcq1ivoiohjrpru625uj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHSr5MuiDz2GUPU7aMTTAzed3srTHxPms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219732252842-6tkjg9sp5kffqcq1ivoiohjrpru625uj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "219732252842-4ad91qfj9har1756pm3359tenipmgk44.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.feldrise.pluctis"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-2186575813138730~5866529768"
+    }
+  ],
+  "configuration_version": "1"
+}
