@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/BottomNavigation.dart';
 import 'package:pluctis/Pages/DashboardPage.dart';
+import 'package:pluctis/Pages/Plants/PlantsPage.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
@@ -30,6 +31,12 @@ class TabNavigator extends StatelessWidget {
     //   TabNavigatorRoutes.reminders: (context) => RemindersPage(),
     //   TabNavigatorRoutes.tenWordsPage: (context) => TenWordsPage(),
     // };
+
+    if (tabItem == TabItem.plants) {
+      return {
+        TabNavigatorRoutes.root: (context) => PlantsPage(),
+      };
+    }
 
     return {
       TabNavigatorRoutes.root: (context) => DashboardPage(),

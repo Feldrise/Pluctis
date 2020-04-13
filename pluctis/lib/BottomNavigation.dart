@@ -33,9 +33,13 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(right: 8, left: 8, bottom: 8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(32), topRight: Radius.circular(32)),
+      ),
+      color: Theme.of(context).accentColor,
+      margin: EdgeInsets.all(0),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: tabIndex[currentTab],
@@ -48,9 +52,9 @@ class BottomNavigation extends StatelessWidget {
           onTap: (index) => onSelectTab(
             TabItem.values[index],
           ),
-          backgroundColor: Theme.of(context).cardColor,
-          selectedItemColor: Theme.of(context).accentColor,
-          unselectedItemColor: Colors.grey,
+          backgroundColor: Theme.of(context).accentColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white54,
           iconSize: 24,
           elevation: 0,
         ),
