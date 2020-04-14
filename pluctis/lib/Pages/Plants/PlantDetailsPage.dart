@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Pages/Plants/PlantIdentityColumn.dart';
+import 'package:pluctis/Pages/Plants/PlantInfoColumn.dart';
 import 'package:pluctis/Widgets/Plants/PlantIdentityForm.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +73,7 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
               controller: _tabController,
               children: <Widget>[
                 _isEditing ? PlantIdentityForm(formKey: _editIdentityFormKey,) : PlantIdentityColumn(),
-                Center(child: Text("Infos"),),
+                PlantInfoColumn(),
                 Center(child: Text("Maladies"),)
               ],
             ),

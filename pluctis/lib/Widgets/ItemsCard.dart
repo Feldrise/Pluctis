@@ -6,7 +6,7 @@ class ItemsCard extends StatelessWidget {
                    @required this.icons,
                    @required this.titles,
                    @required this.contents,
-  }) : assert(titles.length == contents.length);
+  }) : assert(titles.length == contents.length && titles.length == icons.length);
   
   final List<String> icons;
   final List<String> titles;
@@ -17,7 +17,7 @@ class ItemsCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
       child: Padding(
-        padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+        padding: EdgeInsets.all(16),
         child: ListView.builder(
           primary: false,
           shrinkWrap: true,
@@ -30,7 +30,7 @@ class ItemsCard extends StatelessWidget {
                 height: 32,
               ),
               title: Text(titles[index]), 
-              subtitle: Text(contents[index]),
+              subtitle: Text(contents[index], textAlign: TextAlign.justify),
             );
             // return Text(titles[index]);
           } 

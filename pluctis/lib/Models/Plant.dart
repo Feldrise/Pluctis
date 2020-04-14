@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Helpers/DatabaseHelper.dart';
+import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
 
 class Plant with ChangeNotifier {
   Plant({this.id,
@@ -77,9 +78,9 @@ class Plant with ChangeNotifier {
     summerCycle = map[plantColumnSummerCycle];
     autumnCycle = map[plantColumnAutumnCycle];
 
-    infoPlantation = "Cette plante doit être planté.";
-    infoWatering = "Cette plante doit être arrosée.";
-    infoExposure = "Cette plante doit avoir une certaine exposition au soleil.";
+    infoPlantation = map[plantInfoColunmPlantation];
+    infoWatering = map[plantInfoColunmWatering];
+    infoExposure = map[plantInfoColunmExposure];
     // recommandedPot = recommandedPotForPlant(slug);
     // recommandedWaterQuantity = recommandedWaterQuantityForPlant(slug);
     // recommandedSunExposure = recommandedSunExposureForPlant(slug);

@@ -25,7 +25,7 @@ class PlantIdentityForm extends StatelessWidget {
                 Card(
                   margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 16, top: 16),
                     child: ListView(
                       primary: false,
                       shrinkWrap: true,
@@ -75,7 +75,7 @@ class PlantIdentityForm extends StatelessWidget {
                 Card(
                   margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 16, top: 16),
                     child: ListView(
                       primary: false,
                       shrinkWrap: true,

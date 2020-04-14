@@ -26,6 +26,14 @@ class PlantIdentityColumn extends StatelessWidget {
                   plant.name,
                   plant.currentLocation
                 ],
+                buttons: [
+                  FlatButton(
+                    child: Text("Ma plante est morte", style: TextStyle(color: Theme.of(context).accentColor),),
+                    onPressed: () {
+                      print("Dead plant clicked");
+                    },
+                  )
+                ],
               ),
               ItemsCard(
                 icons: [

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantGridItem.dart';
 import 'package:provider/provider.dart';
@@ -34,43 +34,20 @@ class PlantsPageState extends State<PlantsPage> {
     return 2;
   }
 
+  Future _tempAddPlants() async {
+    PlantsInfoHelper plantsInfoHelper = PlantsInfoHelper.instance;
+
+    Provider.of<PlantsList>(context, listen: false).addPlant(await plantsInfoHelper.plantFromInfo("aloe_vera"));
+    Provider.of<PlantsList>(context, listen: false).addPlant(await plantsInfoHelper.plantFromInfo("aloe_vera"));
+
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
 
-    Plant plant1 = Plant(
-      slug: "plant1",
-      name: "Plant 1",
-      currentLocation: "Lieu 1",
-      winterCycle: 1,
-      springCycle: 2,
-      summerCycle: 3,
-      autumnCycle: 4
-    );
-
-    Plant plant2 = Plant(
-      slug: "plant2",
-      name: "Plant 2",
-      currentLocation: "Lieu 2",
-      winterCycle: 5,
-      springCycle: 6,
-      summerCycle: 7,
-      autumnCycle: 8
-    );
-
-    Plant plant3 = Plant(
-      slug: "plant3",
-      name: "Plant 3",
-      currentLocation: "Lieu 3",
-      winterCycle: 9,
-      springCycle: 1,
-      summerCycle: 2,
-      autumnCycle: 3
-    );
-
-    Provider.of<PlantsList>(context, listen: false).addPlant(plant1);
-    Provider.of<PlantsList>(context, listen: false).addPlant(plant2);
-    Provider.of<PlantsList>(context, listen: false).addPlant(plant3);
+    _tempAddPlants();
   }
 
   @override
