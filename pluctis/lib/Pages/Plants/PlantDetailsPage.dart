@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Pages/Plants/PlantIdentityColumn.dart';
+import 'package:pluctis/Widgets/Plants/PlantIdentityForm.dart';
 import 'package:provider/provider.dart';
 
 enum PlantDetailsTabItem { identity, information, disease }
@@ -23,6 +25,10 @@ class PlantDetailsPage extends StatefulWidget {
 
 class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerProviderStateMixin {
   TabController _tabController;
+  
+  bool _isEditing = false;
+
+  final _editIdentityFormKey = GlobalKey<FormState>();
 
   void _tabChanged() {
     setState(() {
@@ -65,12 +71,13 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
             child: TabBarView(
               controller: _tabController,
               children: <Widget>[
-                Center(child: Text(plant.name),),
+                _isEditing ? PlantIdentityForm(formKey: _editIdentityFormKey,) : PlantIdentityColumn(),
                 Center(child: Text("Infos"),),
                 Center(child: Text("Maladies"),)
               ],
             ),
           ),
+          floatingActionButton: _floatingButton(),
         );
       },
     );
@@ -78,5 +85,29 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
 
   _buildItem(PlantDetailsTabItem item) {
     return Tab(text: plantDetailsTabName[item],);
+  }
+
+  Widget _floatingButton() {
+    if (_tabController.index == 0) {
+      return Container(
+        padding: EdgeInsets.only(bottom: 64),
+        child: FloatingActionButton(
+          tooltip: "Editer",
+          child: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white,),
+          onPressed: () {
+            print("Edit plant pressed");
+            if (_isEditing) {
+              _editIdentityFormKey.currentState.save();
+            }
+
+            setState(() {
+              _isEditing = !_isEditing;
+            });
+          },
+        ),
+      );
+    }
+
+    return Container();
   }
 }

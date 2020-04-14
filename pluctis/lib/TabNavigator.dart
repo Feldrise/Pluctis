@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/BottomNavigation.dart';
 import 'package:pluctis/Pages/DashboardPage.dart';
-import 'package:pluctis/Pages/Plants/PlantDetailsPage.dart';
 import 'package:pluctis/Pages/Plants/PlantsPage.dart';
 
 class TabNavigatorRoutes {
