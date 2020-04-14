@@ -71,4 +71,44 @@ class PlantsInfoHelper {
 
     return null;
   }  
+
+  Future<String> plantInfoPlantation(String slug) async {
+    await plantInfo(slug, "plantation");
+  }
+
+  Future<String> plantInfoWatering(String slug) async {
+    await plantInfo(slug, "watering");
+  }
+
+  Future<String> plantInfoExposure(String slug) async {
+    await plantInfo(slug, "exposure");
+  }
+
+  Future<String> plantInfo(String slug, String infoType) async {
+    Database db = await plantsInfoDatabase;
+
+    List<Map> maps = await db.query(tablePlants,
+      columns: [plantColumnSlug,
+                plantInfoColunmPlantation,
+                plantInfoColunmWatering,
+                plantInfoColunmExposure],
+      where: '$plantColumnSlug = ?',
+      whereArgs: [slug]
+    );
+
+    if (maps.length > 0) {
+      if (infoType == "plantation")
+        return maps.first[plantInfoColunmPlantation];
+      
+      if (infoType == "watering")
+        return maps.first[plantInfoColunmWatering];
+      
+      if (infoType == "exposure") 
+        return maps.first[plantInfoColunmExposure];
+
+      return "Indéfini";
+    }
+
+    return "Indéfini";
+  }
 }
