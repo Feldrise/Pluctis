@@ -30,7 +30,7 @@ class PlantGridItem extends StatelessWidget {
               ),
               SizedBox(height: 12,),
               // The plant name
-              Text(plant.name, style: Theme.of(context).textTheme.headline,),
+              Text(plant.name, style: Theme.of(context).textTheme.headline, textAlign: TextAlign.center,),
               SizedBox(height: 12,),
               // The plant next wattering
               Row(

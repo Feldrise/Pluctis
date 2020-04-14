@@ -65,6 +65,11 @@ class Plant with ChangeNotifier {
   }
 
   // Utility functions
+  Future updateDatabase() async {
+    DatabaseHelper helper = DatabaseHelper.instance;
+
+    await helper.updatePlant(this);
+  }
   
   // convenience constructor to create a Plant object
   Plant.fromMap(Map<String, dynamic> map) {

@@ -78,7 +78,7 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
               ],
             ),
           ),
-          floatingActionButton: _floatingButton(),
+          floatingActionButton: _floatingButton(plant),
         );
       },
     );
@@ -88,17 +88,18 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
     return Tab(text: plantDetailsTabName[item],);
   }
 
-  Widget _floatingButton() {
+  Widget _floatingButton(Plant plant) {
     if (_tabController.index == 0) {
       return Container(
         padding: EdgeInsets.only(bottom: 64),
         child: FloatingActionButton(
           tooltip: "Editer",
           child: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white,),
-          onPressed: () {
+          onPressed: () async {
             print("Edit plant pressed");
             if (_isEditing) {
               _editIdentityFormKey.currentState.save();
+              await plant.updateDatabase();
             }
 
             setState(() {

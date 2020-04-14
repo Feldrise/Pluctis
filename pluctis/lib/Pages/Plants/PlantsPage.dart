@@ -34,6 +34,13 @@ class PlantsPageState extends State<PlantsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    Provider.of<PlantsList>(context, listen: false).loadFromDatabase();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<PlantsList>(
       builder: (context, plants, child) {

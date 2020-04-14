@@ -99,15 +99,15 @@ class PlantsInfoHelper {
   }
 
   Future<String> plantInfoPlantation(String slug) async {
-    await plantInfo(slug, "plantation");
+    return await plantInfo(slug, "plantation");
   }
 
   Future<String> plantInfoWatering(String slug) async {
-    await plantInfo(slug, "watering");
+    return await plantInfo(slug, "watering");
   }
 
   Future<String> plantInfoExposure(String slug) async {
-    await plantInfo(slug, "exposure");
+    return await plantInfo(slug, "exposure");
   }
 
   Future<String> plantInfo(String slug, String infoType) async {

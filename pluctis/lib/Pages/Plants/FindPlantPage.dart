@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Models/PlantsList.dart';
+import 'package:pluctis/Pages/Plants/AddPlantPage.dart';
+import 'package:provider/provider.dart';
 
 class FindPlantPage extends StatefulWidget {
   FindPlantPageState createState() => FindPlantPageState();
@@ -93,8 +96,20 @@ class FindPlantPageState extends State<FindPlantPage> {
                               ],
                             ),
                           ),
-                          onTap: () {
+                          onTap: () async {
                             print("Plant selected");
+                            bool haveNewPlant = await Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
+                                value: availablePlants[index],
+                                child: AddPlantPage(),
+                              )),
+                            );
+
+                            if (haveNewPlant != null && haveNewPlant)
+                              await Provider.of<PlantsList>(context, listen: false).addPlant(availablePlants[index]);
+
+                            Navigator.of(context).pop();
                           },
                         ),
                       );
