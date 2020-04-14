@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/BottomNavigation.dart';
 import 'package:pluctis/Pages/DashboardPage.dart';
+import 'package:pluctis/Pages/Plants/PlantDetailsPage.dart';
 import 'package:pluctis/Pages/Plants/PlantsPage.dart';
 
 class TabNavigatorRoutes {
@@ -34,7 +35,9 @@ class TabNavigator extends StatelessWidget {
 
     if (tabItem == TabItem.plants) {
       return {
-        TabNavigatorRoutes.root: (context) => PlantsPage(),
+        TabNavigatorRoutes.root: (context) => PlantsPage(
+          onPush: (destinationPage) => _push(context, destinationPage: destinationPage),
+        ),
       };
     }
 

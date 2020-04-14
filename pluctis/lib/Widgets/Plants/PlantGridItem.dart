@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Pages/Plants/PlantDetailsPage.dart';
 import 'package:provider/provider.dart';
 
 class PlantGridItem extends StatelessWidget {
+  const PlantGridItem({Key key, @required this.onPush}) : super(key: key);
+
+  final ValueChanged<String> onPush;
+  
   @override
   Widget build(BuildContext context) {
     return Consumer<Plant>(
@@ -44,6 +49,13 @@ class PlantGridItem extends StatelessWidget {
                     child: Text("Détails", style: TextStyle(color: Theme.of(context).accentColor)),
                     onPressed: () {
                       print("Details button pressed");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
+                          value: plant,
+                          child: PlantDetailsPage(),
+                        )),
+                      );
                     },
                   ),
                 ),

@@ -5,6 +5,10 @@ import 'package:pluctis/Widgets/Plants/PlantGridItem.dart';
 import 'package:provider/provider.dart';
 
 class PlantsPage extends StatefulWidget {
+  const PlantsPage({Key key, @required this.onPush}) : super(key: key);
+
+  final ValueChanged<String> onPush;
+
   PlantsPageState createState() => PlantsPageState();
 }
 
@@ -104,7 +108,7 @@ class PlantsPageState extends State<PlantsPage> {
                       var plant = plants.allPlants[index];
                       return ChangeNotifierProvider.value(
                         value: plant,
-                        child: PlantGridItem(),
+                        child: PlantGridItem(onPush: widget.onPush,),
                       );
                     },
                   ),

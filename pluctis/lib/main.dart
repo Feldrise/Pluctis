@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/ApplicationStyle.dart';
 import 'package:pluctis/Models/PlantsList.dart';
-import 'package:pluctis/Pages/DashboardPage.dart';
 import 'package:pluctis/Pages/MainPage.dart';
 import 'package:provider/provider.dart';
 
