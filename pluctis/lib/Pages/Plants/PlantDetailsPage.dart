@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Dialogs/Plants/RemovePlantDialog.dart';
 import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Pages/Plants/PlantIdentityColumn.dart';
 import 'package:pluctis/Pages/Plants/PlantInfoColumn.dart';
 import 'package:pluctis/Widgets/Plants/PlantIdentityForm.dart';
@@ -47,40 +49,53 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Plant>(
-      builder: (context, plant, child) {
-        return Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              controller: _tabController,
-              tabs: <Widget>[
-                _buildItem(PlantDetailsTabItem.identity),
-                _buildItem(PlantDetailsTabItem.information),
-                _buildItem(PlantDetailsTabItem.disease),
-              ],
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isEditing) {
+          setState(() {
+            _isEditing = false;
+          });
+
+          return false;
+        }
+
+        return true;
+      },
+      child: Consumer<Plant>(
+        builder: (context, plant, child) {
+          return Scaffold(
+            appBar: AppBar(
+              bottom: TabBar(
+                controller: _tabController,
+                tabs: <Widget>[
+                  _buildItem(PlantDetailsTabItem.identity),
+                  _buildItem(PlantDetailsTabItem.information),
+                  _buildItem(PlantDetailsTabItem.disease),
+                ],
+              ),
+              title: Container(),
             ),
-            title: Container(),
-          ),
-          body: Container(
-            padding: EdgeInsets.only(bottom: 72, left: 8, right: 8),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
+            body: Container(
+              padding: EdgeInsets.only(bottom: 72, left: 8, right: 8),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/background.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  _isEditing ? PlantIdentityForm(formKey: _editIdentityFormKey,) : PlantIdentityColumn(),
+                  PlantInfoColumn(),
+                  Center(child: Text("Maladies"),)
+                ],
               ),
             ),
-            child: TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                _isEditing ? PlantIdentityForm(formKey: _editIdentityFormKey,) : PlantIdentityColumn(),
-                PlantInfoColumn(),
-                Center(child: Text("Maladies"),)
-              ],
-            ),
-          ),
-          floatingActionButton: _floatingButton(plant),
-        );
-      },
+            floatingActionButton: _floatingButton(plant),
+          );
+        },
+      ),
     );
   }
 
@@ -92,24 +107,65 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
     if (_tabController.index == 0) {
       return Container(
         padding: EdgeInsets.only(bottom: 64),
-        child: FloatingActionButton(
-          tooltip: "Editer",
-          child: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white,),
-          onPressed: () async {
-            print("Edit plant pressed");
-            if (_isEditing) {
-              _editIdentityFormKey.currentState.save();
-              await plant.updateDatabase();
-            }
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            FloatingActionButton(
+              tooltip: "Supprimer",
+              backgroundColor: Colors.red,
+              child: Icon(Icons.delete, color: Colors.white,),
+              onPressed: () async {
+                print("Delete plant presseed");
+                await _removePlant(plant);
+              },
+            ),
+            SizedBox(width: 8,),
+            FloatingActionButton(
+              tooltip: "Editer",
+              child: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white,),
+              onPressed: () async {
+                print("Edit plant pressed");
+                if (_isEditing) {
+                  _editIdentityFormKey.currentState.save();
+                  await plant.updateDatabase();
+                }
 
-            setState(() {
-              _isEditing = !_isEditing;
-            });
-          },
+                setState(() {
+                  _isEditing = !_isEditing;
+                });
+              },
+            ),
+          ],
         ),
       );
     }
 
-    return Container();
+    return Container(
+      padding: EdgeInsets.only(bottom: 64),
+      child: FloatingActionButton(
+        tooltip: "Supprimer",
+        backgroundColor: Colors.red,
+        child: Icon(Icons.delete, color: Colors.white,),
+        onPressed: () async {
+          print("Delete plant presseed");
+          await _removePlant(plant);
+        },
+      ),
+    );
+  }
+
+  Future _removePlant(Plant plant) async {
+    bool delete = await showDialog(
+      context: context,
+      builder: (BuildContext context) => RemovePlantDialog(),
+    );
+
+    if (delete != null && delete) {
+      await Provider.of<PlantsList>(context, listen: false).removePlant(plant);
+
+      Navigator.of(context).pop();
+    }
   }
 }

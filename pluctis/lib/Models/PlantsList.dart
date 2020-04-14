@@ -20,4 +20,13 @@ class PlantsList with ChangeNotifier {
     
     notifyListeners();
   }
+
+  Future removePlant(Plant plantToRemove) async {
+    DatabaseHelper helper = DatabaseHelper.instance;
+
+    helper.deletePlant(plantToRemove);
+    allPlants.remove(plantToRemove);
+    
+    notifyListeners();
+  }
 }
