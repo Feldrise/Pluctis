@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantGridItem.dart';
 import 'package:provider/provider.dart';
@@ -32,22 +31,6 @@ class PlantsPageState extends State<PlantsPage> {
     }
 
     return 2;
-  }
-
-  Future _tempAddPlants() async {
-    PlantsInfoHelper plantsInfoHelper = PlantsInfoHelper.instance;
-
-    Provider.of<PlantsList>(context, listen: false).addPlant(await plantsInfoHelper.plantFromInfo("aloe_vera"));
-    Provider.of<PlantsList>(context, listen: false).addPlant(await plantsInfoHelper.plantFromInfo("aloe_vera"));
-
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _tempAddPlants();
   }
 
   @override
@@ -92,6 +75,16 @@ class PlantsPageState extends State<PlantsPage> {
                 )
               ],
             )
+          ),
+          floatingActionButton: Container(
+            padding: EdgeInsets.only(bottom: 64),
+            child: FloatingActionButton(
+              tooltip: "Editer",
+              child: Icon(Icons.add, color: Colors.white,),
+              onPressed: () {
+                widget.onPush('addPlantFindPage');
+              },
+            ),
           ),
         );
       }

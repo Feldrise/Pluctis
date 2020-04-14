@@ -72,6 +72,32 @@ class PlantsInfoHelper {
     return null;
   }  
 
+  Future<List<Plant>> availablePlants() async {
+    Database db = await plantsInfoDatabase;
+    List<Plant> result = [];
+
+    List<Map> maps = await db.query(tablePlants,
+      columns: [plantColumnSlug,
+                plantColumnName,
+                plantColumnWinterCycle,
+                plantColumnSpringCycle,
+                plantColumnSummerCycle,
+                plantColumnAutumnCycle,
+                plantInfoColunmPlantation,
+                plantInfoColunmWatering,
+                plantInfoColunmExposure],
+    );
+
+    for (var plant in maps) {
+      Plant toAdd = Plant.fromMap(plant);
+      toAdd.currentLocation = "Indéfini";
+      
+      result.add(toAdd);
+    }
+
+    return result;
+  }
+
   Future<String> plantInfoPlantation(String slug) async {
     await plantInfo(slug, "plantation");
   }

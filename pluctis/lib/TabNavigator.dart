@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/BottomNavigation.dart';
 import 'package:pluctis/Pages/DashboardPage.dart';
+import 'package:pluctis/Pages/Plants/FindPlantPage.dart';
 import 'package:pluctis/Pages/Plants/PlantsPage.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
+  static const String addPlantFindPage = "/addPlantFindPage";
 }
 
 class TabNavigator extends StatelessWidget {
@@ -37,6 +39,7 @@ class TabNavigator extends StatelessWidget {
         TabNavigatorRoutes.root: (context) => PlantsPage(
           onPush: (destinationPage) => _push(context, destinationPage: destinationPage),
         ),
+        TabNavigatorRoutes.addPlantFindPage: (context) => FindPlantPage(),
       };
     }
 
