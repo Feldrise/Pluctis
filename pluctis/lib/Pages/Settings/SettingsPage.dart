@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:pluctis/Dialogs/SuggestPlantDialog.dart';
+import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:provider/provider.dart';
 
@@ -105,6 +106,21 @@ class SettingsPage extends StatelessWidget {
                             );
                           },
                         ),
+
+                        SizedBox(height: 32,),
+
+                        // Remove ads button
+                        RaisedButton(
+                          child: Text("Retirer les pubs"),
+                          onPressed: () async {
+                            InAppPurchaseHelper helper = InAppPurchaseHelper.instance;
+                            bool isPremium = await helper.isPremium();
+
+                            if (!isPremium) {
+                              helper.buyPremium();
+                            }
+                          },
+                        )
                       ],
                     ),
                   )

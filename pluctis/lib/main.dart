@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:pluctis/Models/ApplicationStyle.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Pages/MainPage.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // Enable in app purchase
+  InAppPurchaseConnection.enablePendingPurchases();
+
+  // Run the app
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => new ApplicationStyle()),
+        ChangeNotifierProvider(create: (context) => new ApplicationSettings()),
         ChangeNotifierProvider(create: (context) => new PlantsList()),
       ],
-      child: Consumer<ApplicationStyle>(
+      child: Consumer<ApplicationSettings>(
         builder: (context, applicationStyle, child) {
           return MaterialApp(
             title: 'Pluctis',

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Dialogs/Plants/PlantLimitReachedDialog.dart';
+import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantGridItem.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +40,30 @@ class PlantsPageState extends State<PlantsPage> {
     super.initState();
 
     Provider.of<PlantsList>(context, listen: false).loadFromDatabase();
+  }
+
+  Future _addPlant(int plantCount) async {
+    InAppPurchaseHelper inAppPurchaseHelper = InAppPurchaseHelper.instance;
+
+    bool isPremium = await inAppPurchaseHelper.isPremium();
+
+    if (plantCount >= 5 && !isPremium) {
+      String addPlantAction = await showDialog(
+        context: context,
+        builder: (BuildContext context) => PlantLimitReachedDialog()
+      );
+
+      if (addPlantAction == null || (addPlantAction != "purchase_premium" && addPlantAction != "view_ad")) {
+        return;
+      }
+
+      if (addPlantAction == "purchase_premium") {
+        inAppPurchaseHelper.buyPremium();
+        return;
+      }
+    }
+    
+    widget.onPush('addPlantFindPage');
   }
 
   @override
@@ -96,8 +122,8 @@ class PlantsPageState extends State<PlantsPage> {
             child: FloatingActionButton(
               tooltip: "Editer",
               child: Icon(Icons.add, color: Colors.white,),
-              onPressed: () {
-                widget.onPush('addPlantFindPage');
+              onPressed: () async {
+                await _addPlant(plants.allPlants.length);
               },
             ),
           ),
