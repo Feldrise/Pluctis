@@ -20,7 +20,7 @@ String plantColumnNextWatering = "next_watering";
 
 class DatabaseHelper {
   static final _databaseName = "PantasiaDatabase";
-  static final _databaseVersion = 2;
+  static final _databaseVersion = 3;
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -63,6 +63,24 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (newVersion == 3) {
+      await db.execute('DROP TABLE interior_plants');
+      await db.execute('DROP TABLE garden_plants');
+
+      await db.execute('''
+          CREATE TABLE $tablePlants (
+            $plantColumnId INTEGER PRIMARY KEY,
+            $plantColumnSlug TEXT NOT NULL,
+            $plantColumnName TEXT NOT NULL,
+            $plantColumnCurrentLocation TEXT NOT NULL,
+            $plantColumnWinterCycle INT NOT NULL,
+            $plantColumnSpringCycle INT NOT NULL,
+            $plantColumnSummerCycle INT NOT NULL,
+            $plantColumnAutumnCycle INT NOT NULL,
+            $plantColumnNextWatering INT NOT NULL
+          )
+          ''');
+    }
   }  
 
   Future<int> insertPlant(Plant plant) async {
