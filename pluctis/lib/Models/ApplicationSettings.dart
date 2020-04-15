@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Helpers/NotificationHelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ApplicationStyle with ChangeNotifier {
+class ApplicationSettings with ChangeNotifier {
   var _initialized = false;
 
   var _brightness = Brightness.light;
@@ -17,7 +18,9 @@ class ApplicationStyle with ChangeNotifier {
 
   var _accentColor = Color(0xff8e24aa);
 
-  void initStyle(BuildContext context) async {
+  TimeOfDay _notificationTime = TimeOfDay(hour: 10, minute: 00);
+
+  void initSettings(BuildContext context) async {
     if (_initialized)
       return;
 
@@ -25,6 +28,8 @@ class ApplicationStyle with ChangeNotifier {
 
     _brightness = (prefs.getBool("isDark") ?? MediaQuery.of(context).platformBrightness == Brightness.dark) ? Brightness.dark: Brightness.light;
     _accentColor = Color(prefs.getInt("accentColor") ?? 0xff8e24aa);
+
+    _notificationTime = TimeOfDay(hour: prefs.getInt("notifHour") ?? 10, minute: prefs.getInt("notifMinute") ?? 00);
 
     _initialized = true;
     notifyListeners();
@@ -65,5 +70,21 @@ class ApplicationStyle with ChangeNotifier {
     accentColor = newColor;
 
     prefs.setInt("accentColor", accentColor.value);
+  }
+
+  TimeOfDay get notificationTime => _notificationTime;
+  int get notificationHour => _notificationTime.hour;
+  int get notificationMinute => _notificationTime.minute;
+
+  Future updateNotificationTime(TimeOfDay newTime) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    _notificationTime = newTime;
+
+    prefs.setInt("notifHour", _notificationTime.hour);
+    prefs.setInt("notifMinute", _notificationTime.minute);
+
+    await NotificationHelper.instance.prepareDailyNotifications();
+    notifyListeners();
   }
 }

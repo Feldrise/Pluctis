@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Helpers/DatabaseHelper.dart';
+import 'package:pluctis/Helpers/NotificationHelper.dart';
 import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
 import 'package:pluctis/Helpers/TimelineHelper.dart';
 
@@ -53,18 +54,23 @@ class Plant with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateWateringFromCycleChange() {
+    TimelineHelper helper = TimelineHelper.instance;
+    NotificationHelper notificationHelper = NotificationHelper.instance;
+
+    DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+    
+    if (nextWatering.difference(now) > Duration(days: 0)) {
+      Duration remaining = nextWatering.difference(now);
+      DateTime lastWatered = nextWatering.subtract(remaining);
+
+      nextWatering = helper.nextWateringForPlant(lastWatered, this);
+      notificationHelper.prepareDailyNotifications();
+    }
+  }
   void setWinterCycle(int newCycle) {
     if (nextWatering != null) {
-      TimelineHelper helper = TimelineHelper.instance;
-
-      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
-      
-      if (nextWatering.difference(now) > Duration(days: 0)) {
-        Duration remaining = nextWatering.difference(now);
-        DateTime lastWatered = nextWatering.subtract(remaining);
-
-        nextWatering = helper.nextWateringForPlant(lastWatered, this);
-      }
+      updateWateringFromCycleChange();
     }
 
     winterCycle = newCycle;
@@ -73,16 +79,7 @@ class Plant with ChangeNotifier {
 
   void setSpringCycle(int newCycle) {
     if (nextWatering != null) {
-      TimelineHelper helper = TimelineHelper.instance;
-
-      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
-      
-      if (nextWatering.difference(now) > Duration(days: 0)) {
-        Duration remaining = nextWatering.difference(now);
-        DateTime lastWatered = nextWatering.subtract(remaining);
-
-        nextWatering = helper.nextWateringForPlant(lastWatered, this);
-      }
+      updateWateringFromCycleChange();
     }
 
     springCycle = newCycle;
@@ -91,16 +88,7 @@ class Plant with ChangeNotifier {
 
   void setSummerCycle(int newCycle) {
     if (nextWatering != null) {
-      TimelineHelper helper = TimelineHelper.instance;
-
-      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
-      
-      if (nextWatering.difference(now) > Duration(days: 0)) {
-        Duration remaining = nextWatering.difference(now);
-        DateTime lastWatered = nextWatering.subtract(remaining);
-
-        nextWatering = helper.nextWateringForPlant(lastWatered, this);
-      }
+      updateWateringFromCycleChange();
     }
 
     summerCycle = newCycle;
@@ -109,16 +97,7 @@ class Plant with ChangeNotifier {
 
   void setAutumnCycle(int newCycle) {
     if (nextWatering != null) {
-      TimelineHelper helper = TimelineHelper.instance;
-
-      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
-      
-      if (nextWatering.difference(now) > Duration(days: 0)) {
-        Duration remaining = nextWatering.difference(now);
-        DateTime lastWatered = nextWatering.subtract(remaining);
-
-        nextWatering = helper.nextWateringForPlant(lastWatered, this);
-      }
+      updateWateringFromCycleChange();
     }
 
     autumnCycle = newCycle;

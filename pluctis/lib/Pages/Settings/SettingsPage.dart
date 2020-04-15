@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:pluctis/Dialogs/SuggestPlantDialog.dart';
-import 'package:pluctis/Models/ApplicationStyle.dart';
+import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ApplicationStyle>(
-      builder: (context, applicationStyle, child) {
+    return Consumer<ApplicationSettings>(
+      builder: (context, applicationSettings, child) {
         return Scaffold(
           appBar: AppBar(
             title: Container(),
@@ -26,7 +26,7 @@ class SettingsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text("Potager", style: Theme.of(context).textTheme.title,),
+                Text("Parametres", style: Theme.of(context).textTheme.title,),
                 Card(
                   margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Padding(
@@ -48,12 +48,28 @@ class SettingsPage extends StatelessWidget {
                           },
                         ),
 
-                        // Update brightness
+                        // Change notifcation time
                         RaisedButton(
-                          child: Text(applicationStyle.isDark ? "Activer le mode claire" : "Activer me mode sombre"),
+                          child: Text("Heure de notification : ${applicationSettings.notificationHour}:${applicationSettings.notificationMinute}"),
                           color: Theme.of(context).primaryColor.withAlpha(150),
                           onPressed: () async {
-                            await applicationStyle.toggleBrightness();
+                            final TimeOfDay picked = await showTimePicker(
+                              context: context,
+                              initialTime: applicationSettings.notificationTime
+                            );
+
+                            if (picked != null) {
+                              await applicationSettings.updateNotificationTime(picked);
+                            }
+                          },
+                        ),
+
+                        // Update brightness
+                        RaisedButton(
+                          child: Text(applicationSettings.isDark ? "Activer le mode claire" : "Activer me mode sombre"),
+                          color: Theme.of(context).primaryColor.withAlpha(150),
+                          onPressed: () async {
+                            await applicationSettings.toggleBrightness();
                           },
                         ),
                         
@@ -69,9 +85,9 @@ class SettingsPage extends StatelessWidget {
                                   title: const Text('Choisissez une couleur'),
                                   content: SingleChildScrollView(
                                     child: MaterialPicker(
-                                      pickerColor: applicationStyle.accentColor,
+                                      pickerColor: applicationSettings.accentColor,
                                       onColorChanged: (newColor) async {
-                                        await applicationStyle.changeAccentColor(newColor);
+                                        await applicationSettings.changeAccentColor(newColor);
                                       },
                                       enableLabel: true,
                                     ),

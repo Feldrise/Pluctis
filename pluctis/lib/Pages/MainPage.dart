@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/BottomNavigation.dart';
-import 'package:pluctis/Models/ApplicationStyle.dart';
+import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:pluctis/TabNavigator.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +32,7 @@ class MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
 
-    Provider.of<ApplicationStyle>(context, listen: false).initStyle(context);
+    Provider.of<ApplicationSettings>(context, listen: false).initSettings(context);
   }
 
   @override
