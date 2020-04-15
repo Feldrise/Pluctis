@@ -67,7 +67,7 @@ class SettingsPage extends StatelessWidget {
 
                         // Update brightness
                         RaisedButton(
-                          child: Text(applicationSettings.isDark ? "Activer le mode claire" : "Activer me mode sombre"),
+                          child: Text(applicationSettings.isDark ? "Activer le mode claire" : "Activer le mode sombre"),
                           color: Theme.of(context).primaryColor.withAlpha(150),
                           onPressed: () async {
                             await applicationSettings.toggleBrightness();
