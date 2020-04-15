@@ -61,6 +61,14 @@ class PlantsPageState extends State<PlantsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Plantes", style: Theme.of(context).textTheme.title, textAlign: TextAlign.left,),
+                Visibility(
+                  child: Expanded(
+                    child: Center(
+                      child: Text("Vous n'avez aucune fleur d'intérieur pour le moment. Appuyer sur \"+\" pour en ajouter.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline,) 
+                    ),
+                  ),
+                  visible: plants.allPlants.isEmpty,
+                ),
                 Expanded(
                   child: GridView.builder(
                     primary: false,

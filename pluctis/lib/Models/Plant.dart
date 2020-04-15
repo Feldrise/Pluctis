@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Helpers/DatabaseHelper.dart';
 import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
+import 'package:pluctis/Helpers/TimelineHelper.dart';
 
 class Plant with ChangeNotifier {
   Plant({this.id,
@@ -28,6 +29,8 @@ class Plant with ChangeNotifier {
   int summerCycle; // In days
   int autumnCycle; // In days
 
+  DateTime nextWatering;
+
   String infoPlantation;
   String infoWatering;
   String infoExposure;
@@ -45,23 +48,79 @@ class Plant with ChangeNotifier {
   }
 
   void setWinterCycle(int newCycle) {
+    if (nextWatering != null) {
+      TimelineHelper helper = TimelineHelper.instance;
+
+      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+      
+      if (nextWatering.difference(now) > Duration(days: 0)) {
+        Duration remaining = nextWatering.difference(now);
+        DateTime lastWatered = nextWatering.subtract(remaining);
+
+        nextWatering = helper.nextWateringForPlant(lastWatered, this);
+      }
+    }
+
     winterCycle = newCycle;
     notifyListeners();
   }
 
   void setSpringCycle(int newCycle) {
+    if (nextWatering != null) {
+      TimelineHelper helper = TimelineHelper.instance;
+
+      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+      
+      if (nextWatering.difference(now) > Duration(days: 0)) {
+        Duration remaining = nextWatering.difference(now);
+        DateTime lastWatered = nextWatering.subtract(remaining);
+
+        nextWatering = helper.nextWateringForPlant(lastWatered, this);
+      }
+    }
+
     springCycle = newCycle;
     notifyListeners();
   }
 
   void setSummerCycle(int newCycle) {
+    if (nextWatering != null) {
+      TimelineHelper helper = TimelineHelper.instance;
+
+      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+      
+      if (nextWatering.difference(now) > Duration(days: 0)) {
+        Duration remaining = nextWatering.difference(now);
+        DateTime lastWatered = nextWatering.subtract(remaining);
+
+        nextWatering = helper.nextWateringForPlant(lastWatered, this);
+      }
+    }
+
     summerCycle = newCycle;
     notifyListeners();
   }
 
   void setAutumnCycle(int newCycle) {
+    if (nextWatering != null) {
+      TimelineHelper helper = TimelineHelper.instance;
+
+      DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+      
+      if (nextWatering.difference(now) > Duration(days: 0)) {
+        Duration remaining = nextWatering.difference(now);
+        DateTime lastWatered = nextWatering.subtract(remaining);
+
+        nextWatering = helper.nextWateringForPlant(lastWatered, this);
+      }
+    }
+
     autumnCycle = newCycle;
     notifyListeners();
+  }
+
+  void setNextWatering(DateTime newDate) {
+    nextWatering = newDate;
   }
 
   // Utility functions
@@ -83,12 +142,12 @@ class Plant with ChangeNotifier {
     summerCycle = map[plantColumnSummerCycle];
     autumnCycle = map[plantColumnAutumnCycle];
 
+    if (map[plantColumnNextWatering] != null)
+      nextWatering = DateTime.fromMillisecondsSinceEpoch(map[plantColumnNextWatering]);
+
     infoPlantation = map[plantInfoColunmPlantation];
     infoWatering = map[plantInfoColunmWatering];
     infoExposure = map[plantInfoColunmExposure];
-    // recommandedPot = recommandedPotForPlant(slug);
-    // recommandedWaterQuantity = recommandedWaterQuantityForPlant(slug);
-    // recommandedSunExposure = recommandedSunExposureForPlant(slug);
   }
 
   // convenience method to create a Map from this Plant object
@@ -101,6 +160,7 @@ class Plant with ChangeNotifier {
       plantColumnSpringCycle: springCycle,
       plantColumnSummerCycle: summerCycle,
       plantColumnAutumnCycle: autumnCycle,
+      plantColumnNextWatering: nextWatering.millisecondsSinceEpoch,
     };
     if (id != null) {
       map[plantColumnId] = id;

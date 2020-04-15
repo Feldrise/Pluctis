@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pluctis/Helpers/TimelineHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Pages/Plants/PlantDetailsPage.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class PlantGridItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Icon(FontAwesomeIcons.tint),
-                  Text("2 jours", style: Theme.of(context).textTheme.subhead,)
+                  Text(TimelineHelper.instance.remainingDaysString(plant), style: Theme.of(context).textTheme.subhead,)
                 ],
               ),
               // The plant detail button

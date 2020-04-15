@@ -98,6 +98,36 @@ class FindPlantPageState extends State<FindPlantPage> {
                           ),
                           onTap: () async {
                             print("Plant selected");
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext  context) {
+                                return AlertDialog(
+                                  title: Text("Date du dernier arrosage"),
+                                  content: Text("Veuillez indiquer la date du dernier arrosage"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Choisir", style: TextStyle(color: Theme.of(context).accentColor),),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              }
+                            );
+
+                            final DateTime picked = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2015, 8),
+                              lastDate: DateTime(2101)
+                            );
+
+                            if (picked == null) {
+                              Navigator.of(context).pop();
+                              return;
+                            }
+
                             bool haveNewPlant = await Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
@@ -106,8 +136,13 @@ class FindPlantPageState extends State<FindPlantPage> {
                               )),
                             );
 
-                            if (haveNewPlant != null && haveNewPlant)
-                              await Provider.of<PlantsList>(context, listen: false).addPlant(availablePlants[index]);
+                            if (haveNewPlant != null && haveNewPlant) {
+                              Plant newPlant = availablePlants[index]; 
+                              newPlant.nextWatering = DateTime.now();
+                              
+                              await Provider.of<PlantsList>(context, listen: false).addPlant(newPlant);
+                              await Provider.of<PlantsList>(context, listen: false).updatePlantWatering(picked, newPlant);
+                            }
 
                             Navigator.of(context).pop();
                           },

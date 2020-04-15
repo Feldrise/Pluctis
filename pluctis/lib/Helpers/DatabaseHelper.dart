@@ -16,6 +16,7 @@ String plantColumnWinterCycle = "cycle_winter";
 String plantColumnSpringCycle = "cycle_spring";
 String plantColumnSummerCycle = "cycle_summer";
 String plantColumnAutumnCycle = "cycle_autumn";
+String plantColumnNextWatering = "next_watering";
 
 class DatabaseHelper {
   static final _databaseName = "PantasiaDatabase";
@@ -51,11 +52,12 @@ class DatabaseHelper {
             $plantColumnId INTEGER PRIMARY KEY,
             $plantColumnSlug TEXT NOT NULL,
             $plantColumnName TEXT NOT NULL,
+            $plantColumnCurrentLocation TEXT NOT NULL,
             $plantColumnWinterCycle INT NOT NULL,
             $plantColumnSpringCycle INT NOT NULL,
             $plantColumnSummerCycle INT NOT NULL,
             $plantColumnAutumnCycle INT NOT NULL,
-            $plantColumnCurrentLocation TEXT NOT NULL
+            $plantColumnNextWatering INT NOT NULL
           )
           ''');
   }
@@ -81,7 +83,8 @@ class DatabaseHelper {
                 plantColumnWinterCycle,
                 plantColumnSpringCycle,
                 plantColumnSummerCycle,
-                plantColumnAutumnCycle,],
+                plantColumnAutumnCycle,
+                plantColumnNextWatering],
       where: '$plantColumnId = ?',
       whereArgs: [id]
     );
@@ -113,7 +116,8 @@ class DatabaseHelper {
                 plantColumnWinterCycle,
                 plantColumnSpringCycle,
                 plantColumnSummerCycle,
-                plantColumnAutumnCycle,],
+                plantColumnAutumnCycle,
+                plantColumnNextWatering],
     );
 
     PlantsInfoHelper plantsInfoHelper = PlantsInfoHelper.instance;
