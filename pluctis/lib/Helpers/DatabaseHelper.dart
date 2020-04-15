@@ -93,9 +93,13 @@ class DatabaseHelper {
       PlantsInfoHelper plantsInfoHelper = PlantsInfoHelper.instance;
 
       Plant plant = Plant.fromMap(maps.first);
+      plant.sourcesLinks = await plantsInfoHelper.plantInfoSourcesLink(plant.slug);
       plant.infoPlantation = await plantsInfoHelper.plantInfoPlantation(plant.slug);
       plant.infoWatering = await plantsInfoHelper.plantInfoWatering(plant.slug);
-      plant.infoExposure= await plantsInfoHelper.plantInfoExposure(plant.slug);
+      plant.infoExposure = await plantsInfoHelper.plantInfoExposure(plant.slug);
+      plant.goodAnimals = await plantsInfoHelper.plantInfoGoodAnimals(plant.slug);
+      plant.disease = await plantsInfoHelper.plantInfoDisease(plant.slug);
+      plant.badAnimals = await plantsInfoHelper.plantInfoBadAnimals(plant.slug);
 
       return plant;
     }
@@ -124,9 +128,13 @@ class DatabaseHelper {
     
     for (var plant in maps) {
       Plant toAdd = Plant.fromMap(plant);
+      toAdd.sourcesLinks = await plantsInfoHelper.plantInfoSourcesLink(toAdd.slug);
       toAdd.infoPlantation = await plantsInfoHelper.plantInfoPlantation(toAdd.slug);
       toAdd.infoWatering = await plantsInfoHelper.plantInfoWatering(toAdd.slug);
-      toAdd.infoExposure= await plantsInfoHelper.plantInfoExposure(toAdd.slug);
+      toAdd.infoExposure = await plantsInfoHelper.plantInfoExposure(toAdd.slug);
+      toAdd.goodAnimals = await plantsInfoHelper.plantInfoGoodAnimals(toAdd.slug);
+      toAdd.disease = await plantsInfoHelper.plantInfoDisease(toAdd.slug);
+      toAdd.badAnimals = await plantsInfoHelper.plantInfoBadAnimals(toAdd.slug);
 
       result.add(toAdd);
     }

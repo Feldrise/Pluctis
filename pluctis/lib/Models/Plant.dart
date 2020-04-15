@@ -31,9 +31,15 @@ class Plant with ChangeNotifier {
 
   DateTime nextWatering;
 
+  List<String> sourcesLinks = [];
+
   String infoPlantation;
   String infoWatering;
   String infoExposure;
+  
+  String goodAnimals;
+  String disease;
+  String badAnimals;
 
   // Setters
 
@@ -148,6 +154,15 @@ class Plant with ChangeNotifier {
     infoPlantation = map[plantInfoColunmPlantation];
     infoWatering = map[plantInfoColunmWatering];
     infoExposure = map[plantInfoColunmExposure];
+
+    goodAnimals = map[plantInfoColunmGoodAnimals];
+    disease = map[plantInfoColumnDisease];
+    badAnimals = map[plantInfoColumnBadAnimals];
+
+    if (map[plantInfoColumnSourcesLinks] != null) {
+      String sourcesLinkString = map[plantInfoColumnSourcesLinks];
+      sourcesLinks = sourcesLinkString.split(',');
+    }
   }
 
   // convenience method to create a Map from this Plant object

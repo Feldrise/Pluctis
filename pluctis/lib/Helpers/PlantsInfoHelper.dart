@@ -6,9 +6,14 @@ import 'package:pluctis/Helpers/DatabaseHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:sqflite/sqflite.dart';
 
+String plantInfoColumnSourcesLinks = "sources_links";
 String plantInfoColunmPlantation = "info_plantation";
 String plantInfoColunmWatering = "info_watering";
 String plantInfoColunmExposure = "info_exposure";
+String plantInfoColunmGoodAnimals = "good_animals";
+String plantInfoColumnDisease = "disease";
+String plantInfoColumnBadAnimals = "bad_animals";
+
 
 class PlantsInfoHelper {
   PlantsInfoHelper._privateConstructor();
@@ -55,9 +60,13 @@ class PlantsInfoHelper {
                 plantColumnSpringCycle,
                 plantColumnSummerCycle,
                 plantColumnAutumnCycle,
+                plantInfoColumnSourcesLinks,
                 plantInfoColunmPlantation,
                 plantInfoColunmWatering,
-                plantInfoColunmExposure],
+                plantInfoColunmExposure,
+                plantInfoColunmGoodAnimals,
+                plantInfoColumnDisease,
+                plantInfoColumnBadAnimals],
       where: '$plantColumnSlug = ?',
       whereArgs: [slug]
     );
@@ -83,9 +92,13 @@ class PlantsInfoHelper {
                 plantColumnSpringCycle,
                 plantColumnSummerCycle,
                 plantColumnAutumnCycle,
+                plantInfoColumnSourcesLinks,
                 plantInfoColunmPlantation,
                 plantInfoColunmWatering,
-                plantInfoColunmExposure],
+                plantInfoColunmExposure,
+                plantInfoColunmGoodAnimals,
+                plantInfoColumnDisease,
+                plantInfoColumnBadAnimals],
     );
 
     for (var plant in maps) {
@@ -96,6 +109,15 @@ class PlantsInfoHelper {
     }
 
     return result;
+  }
+
+  Future<List<String>> plantInfoSourcesLink(String slug) async {
+    String sourcesLinksString = await plantInfo(slug, "sources_links");
+
+    if (sourcesLinksString != null)
+      return sourcesLinksString.split(',');
+    
+    return [];
   }
 
   Future<String> plantInfoPlantation(String slug) async {
@@ -110,19 +132,38 @@ class PlantsInfoHelper {
     return await plantInfo(slug, "exposure");
   }
 
+  Future<String> plantInfoGoodAnimals(String slug) async {
+    return await plantInfo(slug, "good_animals");
+  }
+
+  Future<String> plantInfoDisease(String slug) async {
+    return await plantInfo(slug, "disease");
+  }
+
+  Future<String> plantInfoBadAnimals(String slug) async {
+    return await plantInfo(slug, "bad_animals");
+  }
+
   Future<String> plantInfo(String slug, String infoType) async {
     Database db = await plantsInfoDatabase;
 
     List<Map> maps = await db.query(tablePlants,
       columns: [plantColumnSlug,
+                plantInfoColumnSourcesLinks,
                 plantInfoColunmPlantation,
                 plantInfoColunmWatering,
-                plantInfoColunmExposure],
+                plantInfoColunmExposure,
+                plantInfoColunmGoodAnimals,
+                plantInfoColumnDisease,
+                plantInfoColumnBadAnimals],
       where: '$plantColumnSlug = ?',
       whereArgs: [slug]
     );
 
     if (maps.length > 0) {
+      if (infoType == "sources_links") 
+        return maps.first[plantInfoColumnSourcesLinks];
+
       if (infoType == "plantation")
         return maps.first[plantInfoColunmPlantation];
       
@@ -131,6 +172,15 @@ class PlantsInfoHelper {
       
       if (infoType == "exposure") 
         return maps.first[plantInfoColunmExposure];
+
+      if (infoType == "good_animals")
+        return maps.first[plantInfoColunmGoodAnimals];
+
+      if (infoType == "disease") 
+        return maps.first[plantInfoColumnDisease];
+
+      if (infoType == "bad_animals")
+        return maps.first[plantInfoColumnBadAnimals];
 
       return "Indéfini";
     }

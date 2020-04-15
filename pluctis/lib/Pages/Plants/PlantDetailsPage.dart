@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:pluctis/Dialogs/Plants/RemovePlantDialog.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
+import 'package:pluctis/Pages/Plants/PlantHealthColumn.dart';
 import 'package:pluctis/Pages/Plants/PlantIdentityColumn.dart';
 import 'package:pluctis/Pages/Plants/PlantInfoColumn.dart';
 import 'package:pluctis/Widgets/Plants/PlantIdentityForm.dart';
 import 'package:provider/provider.dart';
 
-enum PlantDetailsTabItem { identity, information, disease }
+enum PlantDetailsTabItem { identity, information, health }
 
 Map<PlantDetailsTabItem, String> plantDetailsTabName = {
   PlantDetailsTabItem.identity: "Identité",
   PlantDetailsTabItem.information: "Informations",
-  PlantDetailsTabItem.disease: "Maladies",
+  PlantDetailsTabItem.health: "Santée",
 };
 
 Map<PlantDetailsTabItem, int> plantDetailsTabIndex = {
   PlantDetailsTabItem.identity: 0,
   PlantDetailsTabItem.information: 1,
-  PlantDetailsTabItem.disease: 2,
+  PlantDetailsTabItem.health: 3,
 };
 
 
@@ -70,7 +71,7 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
                 tabs: <Widget>[
                   _buildItem(PlantDetailsTabItem.identity),
                   _buildItem(PlantDetailsTabItem.information),
-                  _buildItem(PlantDetailsTabItem.disease),
+                  _buildItem(PlantDetailsTabItem.health),
                 ],
               ),
               title: Container(),
@@ -88,7 +89,7 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
                 children: <Widget>[
                   _isEditing ? PlantIdentityForm(formKey: _editIdentityFormKey,) : PlantIdentityColumn(),
                   PlantInfoColumn(),
-                  Center(child: Text("Maladies"),)
+                  PlantHealthColumn(),
                 ],
               ),
             ),

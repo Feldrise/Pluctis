@@ -27,10 +27,10 @@ class ItemsCard extends StatelessWidget {
               leading: SvgPicture.asset(
                 'assets/svg/${icons[index]}.svg',
                 semanticsLabel: "Icon",
-                height: 32,
+                height: 48,
               ),
               title: Text(titles[index]), 
-              subtitle: Text(contents[index], textAlign: TextAlign.justify),
+              subtitle: Text(contents[index], textAlign: TextAlign.left),
             );
             // return Text(titles[index]);
           } 
