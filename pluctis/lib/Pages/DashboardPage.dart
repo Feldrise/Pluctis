@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pluctis/Helpers/TimelineHelper.dart';
-import 'package:pluctis/Models/ApplicationStyle.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantDashboardWidget.dart';
@@ -52,7 +50,7 @@ class DashboardPage extends StatelessWidget {
         if (_unhappyPlant.isEmpty && _nextPlant.isEmpty && _happyPlant.isEmpty) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Home"),
+              title: Container(),
             ),
             body: Container(
               padding: EdgeInsets.only(bottom: 64, left: 8),

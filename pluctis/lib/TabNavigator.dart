@@ -3,6 +3,8 @@ import 'package:pluctis/BottomNavigation.dart';
 import 'package:pluctis/Pages/DashboardPage.dart';
 import 'package:pluctis/Pages/Plants/FindPlantPage.dart';
 import 'package:pluctis/Pages/Plants/PlantsPage.dart';
+import 'package:pluctis/Pages/Settings/SettingsPage.dart';
+import 'package:pluctis/Pages/VegeGarden/VegeGardenPage.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
@@ -40,6 +42,18 @@ class TabNavigator extends StatelessWidget {
           onPush: (destinationPage) => _push(context, destinationPage: destinationPage),
         ),
         TabNavigatorRoutes.addPlantFindPage: (context) => FindPlantPage(),
+      };
+    }
+
+    if (tabItem == TabItem.vege_garden) {
+      return {
+        TabNavigatorRoutes.root: (context) => VegeGardenPage(),
+      };
+    }
+
+    if (tabItem == TabItem.settings) {
+      return {
+        TabNavigatorRoutes.root: (context) => SettingsPage(),
       };
     }
 

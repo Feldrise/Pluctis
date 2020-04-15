@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/BottomNavigation.dart';
+import 'package:pluctis/Models/ApplicationStyle.dart';
 import 'package:pluctis/TabNavigator.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   MainPageState createState() => MainPageState();
@@ -24,6 +26,13 @@ class MainPageState extends State<MainPage> {
     } else {
       setState(() => _currentTab = tabItem);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<ApplicationStyle>(context, listen: false).initStyle(context);
   }
 
   @override
