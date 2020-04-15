@@ -39,4 +39,5 @@ lib/generated_plugin_registrant.dart
 # Custom ignore
 pubspec.lock
 android/key.properties
+lib/ApiKeys.dart
 keytools/*

@@ -1,6 +1,8 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:pluctis/Dialogs/Plants/PlantLimitReachedDialog.dart';
 import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
+import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantGridItem.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +61,16 @@ class PlantsPageState extends State<PlantsPage> {
 
       if (addPlantAction == "purchase_premium") {
         inAppPurchaseHelper.buyPremium();
+        return;
+      }
+
+      if (addPlantAction == "view_ad") {
+        AdsHelper.instance.showRewardAd((RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+          if (event == RewardedVideoAdEvent.rewarded) {
+            widget.onPush('addPlantFindPage');
+          }
+        });
+
         return;
       }
     }
