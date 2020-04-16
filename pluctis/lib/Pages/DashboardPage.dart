@@ -192,7 +192,7 @@ class DashboardPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 if (index == 0) {
                                   return SvgPicture.asset(
-                                    'assets/svg/spring.svg',
+                                    'assets/svg/smiling.svg',
                                     semanticsLabel: "Icon",
                                     height: 112,
                                   );
