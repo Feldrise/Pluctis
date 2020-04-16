@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Helpers/TimelineHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
@@ -64,6 +65,10 @@ class PlantDashboardWidget extends StatelessWidget {
                     onPressed: () async {
                       print("watered button pressed");
                       await Provider.of<PlantsList>(context, listen: false).updatePlantWatering(DateTime.now(), plant);
+                      
+                      // We show an ad, with 1/2 chances to appear
+                      AdsHelper adsHelper = AdsHelper.instance;
+                      await adsHelper.showInterstitialAd(chanceToShow: 2);
                     },
                   ),
                 ),

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:pluctis/ApiKeys.dart';
+import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 
 class AdsHelper {
   AdsHelper._privateConstructor();
@@ -22,6 +25,16 @@ class AdsHelper {
     _initialized = true;
   }
 
+  InterstitialAd _createInterstitialAd() {
+    return InterstitialAd(
+      adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: _adTargetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event $event");
+      },
+    );
+  }
+
   Future showRewardAd(RewardedVideoAdListener listener) async {
     if (!_initialized) {
       await _initAds();
@@ -31,6 +44,23 @@ class AdsHelper {
     if (loaded) {
       RewardedVideoAd.instance.show();
       RewardedVideoAd.instance.listener = listener;
+    }
+  }
+
+  Future showInterstitialAd({int chanceToShow}) async {
+     if (!_initialized) {
+      await _initAds();
+    }
+
+    bool isPremium = await InAppPurchaseHelper.instance.isPremium();
+    Random random = Random();
+
+    if (!isPremium && random.nextInt(chanceToShow) == 0) {
+      InterstitialAd interstitialAd = _createInterstitialAd();
+      bool loaded = await interstitialAd.load();
+
+      if (loaded) 
+        interstitialAd.show();
     }
   }
 }

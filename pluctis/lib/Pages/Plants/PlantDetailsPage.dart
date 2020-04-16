@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Dialogs/Plants/RemovePlantDialog.dart';
+import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Pages/Plants/PlantHealthColumn.dart';
@@ -52,6 +53,10 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        // We show an ad, with 1/3 chances to appear
+        AdsHelper adsHelper = AdsHelper.instance;
+        await adsHelper.showInterstitialAd(chanceToShow: 3);
+
         if (_isEditing) {
           setState(() {
             _isEditing = false;
@@ -131,6 +136,10 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
                 if (_isEditing) {
                   _editIdentityFormKey.currentState.save();
                   await plant.updateDatabase();
+
+                  // We show an ad, with 1/3 chances to appear
+                  AdsHelper adsHelper = AdsHelper.instance;
+                  await adsHelper.showInterstitialAd(chanceToShow: 3);
                 }
 
                 setState(() {
@@ -165,6 +174,10 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
 
     if (delete != null && delete) {
       await Provider.of<PlantsList>(context, listen: false).removePlant(plant);
+      
+      // We show an ad, with 1/3 chances to appear
+      AdsHelper adsHelper = AdsHelper.instance;
+      await adsHelper.showInterstitialAd(chanceToShow: 3);
 
       Navigator.of(context).pop();
     }
