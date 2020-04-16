@@ -1,16 +1,8 @@
-# pluctis
+# Pluctis
 
-A new Flutter project.
+## Structure de l'application
+La majorité des ressources graphiques se trouvent dans :
+ - Le dossier `assets` pour ce qui est utilisé dans l'application
+ - le dossier `stores` pour ce qui est utilisé hors de l'application (bannières, logos, vidéos, etc.).
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Le code (Dart) de l'application se trouve dans le dossier `lib`. Les autres dossiers sont majoritairement gérés par Flutter et correspondent aux différentes spécifications individuelles des plateformes mobiles.
