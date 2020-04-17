@@ -32,9 +32,43 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Alternative bottom bar
+    // return Container(
+    //   margin: EdgeInsets.only(left: 8, right: 8),
+    //   padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+    //   decoration: BoxDecoration(
+    //     color: Theme.of(context).scaffoldBackgroundColor,
+    //     border: Border.all(color: Theme.of(context).accentColor, width: 1),
+    //     // border: Border(
+    //     //   left: BorderSide(color: Theme.of(context).accentColor, width: 2),
+    //     //   right: BorderSide(color: Theme.of(context).accentColor, width: 2),
+    //     //   top: BorderSide(color: Theme.of(context).accentColor, width: 2),
+    //     // ),
+    //     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+    //   ),
+    //   child: BottomNavigationBar(
+    //     type: BottomNavigationBarType.fixed,
+    //     currentIndex: tabIndex[currentTab],
+    //     items: [
+    //       _buildItem(context, tabItem: TabItem.dashboard),
+    //       _buildItem(context, tabItem: TabItem.plants),
+    //       _buildItem(context, tabItem: TabItem.vege_garden),
+    //       _buildItem(context, tabItem: TabItem.settings)
+    //     ],
+    //     onTap: (index) => onSelectTab(
+    //       TabItem.values[index],
+    //     ),
+    //     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    //     selectedItemColor: Theme.of(context).accentColor,
+    //     unselectedItemColor: Theme.of(context).accentColor.withAlpha(150),
+    //     iconSize: 24,
+    //     elevation: 0,
+    //   ),
+    // );
+
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(32), topRight: Radius.circular(32)),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       ),
       color: Theme.of(context).accentColor,
       margin: EdgeInsets.all(0),

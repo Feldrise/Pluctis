@@ -1,5 +1,6 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pluctis/Dialogs/Plants/PlantLimitReachedDialog.dart';
 import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Helpers/AdsHelper.dart';
@@ -18,16 +19,10 @@ class PlantsPage extends StatefulWidget {
 class PlantsPageState extends State<PlantsPage> {
 
   // Get the number of columns to show depending on screen size
-  int _numberOfColumns() {
+  int get crossAxisCount {
     double width = MediaQuery.of(context).size.width;
 
-    if (width > 1200) {
-      return 6;
-    }
-    else if (width > 1000) {
-      return 5;
-    }
-    else if (width > 800) {
+    if (width > 800) {
       return 4;
     }
     else if (width > 600) {
@@ -35,6 +30,19 @@ class PlantsPageState extends State<PlantsPage> {
     }
 
     return 2;
+  }
+
+  int get crossAxisTileCount {
+    double width = MediaQuery.of(context).size.width;
+
+    if (width > 800) {
+      return 1;
+    }
+    else if (width > 600) {
+      return 1;
+    }
+
+    return 1;
   }
 
   @override
@@ -108,14 +116,10 @@ class PlantsPageState extends State<PlantsPage> {
                   visible: plants.allPlants.isEmpty,
                 ),
                 Expanded(
-                  child: GridView.builder(
-                    primary: false,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 0,
-                      mainAxisSpacing: 0,
-                      crossAxisCount: _numberOfColumns(),
-                      childAspectRatio: 2/3,
-                    ),
+                  child: StaggeredGridView.countBuilder(
+                    scrollDirection: Axis.vertical,
+                    // primary: false,
+                    crossAxisCount: crossAxisCount,
                     itemCount: plants.allPlants.length,
                     itemBuilder: (context, index) {
                       var plant = plants.allPlants[index];
@@ -123,7 +127,12 @@ class PlantsPageState extends State<PlantsPage> {
                         value: plant,
                         child: PlantGridItem(onPush: widget.onPush,),
                       );
+                    }, 
+                    staggeredTileBuilder: (int index) {
+                      return StaggeredTile.extent(crossAxisTileCount, index.isEven ? 300 : 364);
                     },
+                    mainAxisSpacing: 4.0,
+                    crossAxisSpacing: 4.0,
                   ),
                 )
               ],

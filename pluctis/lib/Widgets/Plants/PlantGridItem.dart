@@ -17,33 +17,42 @@ class PlantGridItem extends StatelessWidget {
         return Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               // The plant image
-              ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20), bottom: Radius.circular(0)),
-                child: Image(
-                  // colorBlendMode: _plant.isAlive ? null : BlendMode.darken,
-                  // color: _plant.isAlive ? null : Colors.black54,
-                  image: AssetImage("assets/images/plants/${plant.slug}.png"), 
-                  fit: BoxFit.fill,
+              Expanded(
+                flex: 5,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20), bottom: Radius.circular(0)),
+                  child: Image(
+                    // colorBlendMode: _plant.isAlive ? null : BlendMode.darken,
+                    // color: _plant.isAlive ? null : Colors.black54,
+                    // width: 25,
+                    image: AssetImage("assets/images/plants/${plant.slug}.png"), 
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              SizedBox(height: 12,),
               // The plant name
-              Text(plant.name, style: Theme.of(context).textTheme.headline, textAlign: TextAlign.center,),
-              SizedBox(height: 12,),
+              Expanded(
+                flex: 2,
+                child: Center(child: Text(plant.name, style: Theme.of(context).textTheme.headline, textAlign: TextAlign.center,)),
+              ),
               // The plant next wattering
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(FontAwesomeIcons.tint),
-                  Text(TimelineHelper.instance.remainingDaysString(plant), style: Theme.of(context).textTheme.subhead,)
-                ],
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.tint),
+                    Text(TimelineHelper.instance.remainingDaysString(plant), style: Theme.of(context).textTheme.subhead,)
+                  ],
+                ),
               ),
               // The plant detail button
               Expanded(
+                flex: 1,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: FlatButton(

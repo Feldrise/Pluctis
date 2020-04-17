@@ -89,131 +89,140 @@ class DashboardPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("Tableau de bord", style: Theme.of(context).textTheme.title,),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[ 
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Tableau de bord", style: Theme.of(context).textTheme.title,),
 
-                  // The plants who really need watering
-                  Visibility(
-                    visible: _unhappyPlant.isNotEmpty,
-                    child: SizedBox(
-                      height: 258,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Card(
-                          margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              primary: false,
+                        // The plants who really need watering
+                        Visibility(
+                          visible: _unhappyPlant.isNotEmpty,
+                          child: SizedBox(
+                            height: 258,
+                            child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              itemCount: _unhappyPlant.length + 1,
-                              itemBuilder: (context, index) {
-                                if (index == 0) {
-                                  return SvgPicture.asset(
-                                    'assets/svg/crying.svg',
-                                    semanticsLabel: "Icon",
-                                    height: 112,
-                                  );
-                                }
+                              child: Card(
+                                margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 8, right: 8),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _unhappyPlant.length + 1,
+                                    itemBuilder: (context, index) {
+                                      if (index == 0) {
+                                        return SvgPicture.asset(
+                                          'assets/svg/crying.svg',
+                                          semanticsLabel: "Icon",
+                                          height: 112,
+                                        );
+                                      }
 
-                                return ChangeNotifierProvider.value(
-                                  value: _unhappyPlant[index - 1],
-                                  child: PlantDashboardWidget(),
-                                );
-                              },
+                                      return ChangeNotifierProvider.value(
+                                        value: _unhappyPlant[index - 1],
+                                        child: PlantDashboardWidget(),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  // END: The plants who really need watering
+                        // END: The plants who really need watering
 
-                  // The plants who will need watering
-                  Visibility(
-                    visible: _nextPlant.isNotEmpty,
-                    child: SizedBox(
-                      height: 258,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Card(
-                          margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              primary: false,
+                        // The plants who will need watering
+                        Visibility(
+                          visible: _nextPlant.isNotEmpty,
+                          child: SizedBox(
+                            height: 258,
+                            child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              itemCount: _nextPlant.length + 1,
-                              itemBuilder: (context, index) {
-                                if (index == 0) {
-                                  return SvgPicture.asset(
-                                    'assets/svg/water_cycle.svg',
-                                    semanticsLabel: "Icon",
-                                    height: 112,
-                                  );
-                                }
+                              child: Card(
+                                margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 8, right: 8),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _nextPlant.length + 1,
+                                    itemBuilder: (context, index) {
+                                      if (index == 0) {
+                                        return SvgPicture.asset(
+                                          'assets/svg/water_cycle.svg',
+                                          semanticsLabel: "Icon",
+                                          height: 112,
+                                        );
+                                      }
 
-                                return ChangeNotifierProvider.value(
-                                  value: _nextPlant[index - 1],
-                                  child: PlantDashboardWidget(),
-                                );
-                              },
+                                      return ChangeNotifierProvider.value(
+                                        value: _nextPlant[index - 1],
+                                        child: PlantDashboardWidget(),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  // END: The plants who really need watering
+                        // END: The plants who really need watering
 
-                  // The plants who will need watering
-                  Visibility(
-                    visible: _happyPlant.isNotEmpty,
-                    child: SizedBox(
-                      height: 258,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Card(
-                          margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              primary: false,
+                        // The plants who will need watering
+                        Visibility(
+                          visible: _happyPlant.isNotEmpty,
+                          child: SizedBox(
+                            height: 258,
+                            child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              itemCount: _happyPlant.length + 1,
-                              itemBuilder: (context, index) {
-                                if (index == 0) {
-                                  return SvgPicture.asset(
-                                    'assets/svg/smiling.svg',
-                                    semanticsLabel: "Icon",
-                                    height: 112,
-                                  );
-                                }
+                              child: Card(
+                                margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 8, right: 8),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _happyPlant.length + 1,
+                                    itemBuilder: (context, index) {
+                                      if (index == 0) {
+                                        return SvgPicture.asset(
+                                          'assets/svg/smiling.svg',
+                                          semanticsLabel: "Icon",
+                                          height: 112,
+                                        );
+                                      }
 
-                                return ChangeNotifierProvider.value(
-                                  value: _happyPlant[index - 1],
-                                  child: PlantDashboardWidget(),
-                                );
-                              },
+                                      return ChangeNotifierProvider.value(
+                                        value: _happyPlant[index - 1],
+                                        child: PlantDashboardWidget(),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        // END: The plants who really need watering
+
+
+                      ],
                     ),
                   ),
-                  // END: The plants who really need watering
-
-
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
