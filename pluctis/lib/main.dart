@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:pluctis/Models/PlantsList.dart';
+import 'package:pluctis/Models/VegetablesList.dart';
 import 'package:pluctis/Pages/MainPage.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => new ApplicationSettings()),
         ChangeNotifierProvider(create: (context) => new PlantsList()),
+        ChangeNotifierProvider(create: (context) => new VegetablesList(),)
       ],
       child: Consumer<ApplicationSettings>(
         builder: (context, applicationStyle, child) {

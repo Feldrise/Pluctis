@@ -64,6 +64,7 @@ flutter:
   assets:
   - assets/images/
   - assets/images/plants/
+  - assets/images/vegetables/
   - assets/images/vege_problems/
   - assets/svg/
   - assets/plants_info.db
