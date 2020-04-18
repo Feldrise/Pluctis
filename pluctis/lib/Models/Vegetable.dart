@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pluctis/Models/VegeProblems.dart';
+import 'package:pluctis/Models/VegeProblem.dart';
 
 class Vegetable with ChangeNotifier {
   Vegetable({
@@ -11,7 +11,7 @@ class Vegetable with ChangeNotifier {
     this.harvestMonths,
     @required this.currentState,
     this.infoSowing,
-    this.growSowing,
+    this.infoGrowing,
     this.infoHarvesting,
     this.problems
   });
@@ -26,8 +26,8 @@ class Vegetable with ChangeNotifier {
   String currentState;
 
   String infoSowing;
-  String growSowing;
+  String infoGrowing;
   String infoHarvesting;
 
-  List<VegeProblems> problems = [];
+  List<VegeProblem> problems = [];
 }

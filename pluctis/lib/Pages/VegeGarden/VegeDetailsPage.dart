@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Models/Vegetable.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeIdentityColumn.dart';
+import 'package:pluctis/Pages/VegeGarden/VegeInfoColumn.dart';
+import 'package:pluctis/Pages/VegeGarden/VegeIssuesColumn.dart';
 import 'package:provider/provider.dart';
 
 enum VegeDetailsTabItem { identity, information, issues }
@@ -76,8 +78,8 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
                 controller: _tabController,
                 children: <Widget>[
                   VegeIdentityColumn(),
-                  Center(child: Text("Informations")),
-                  Center(child: Text("Problèmes")),
+                  VegeInfoColumn(),
+                  VegeIssuesColumn(),
                 ],
               ),
             ),
