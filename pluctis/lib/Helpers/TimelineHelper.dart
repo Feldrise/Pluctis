@@ -1,6 +1,24 @@
 
 import 'package:pluctis/Models/Plant.dart';
 
+enum Month { january, february, march, april, may, june, july, august, september, october, november, december }
+
+Map<Month, String> monthSlug = {
+  Month.january: "jan",
+  Month.february: "feb",
+  Month.march: "mar",
+  Month.april: "apr",
+  Month.march: "mar",
+  Month.april: "apr",
+  Month.may: "may",
+  Month.june: "jun",
+  Month.august: "aug",
+  Month.september: "sep",
+  Month.october: "oct",
+  Month.november: "nov",
+  Month.december: "dec"
+};
+
 class TimelineHelper {
   final String winter = "winter";
   final String spring = "spring";
