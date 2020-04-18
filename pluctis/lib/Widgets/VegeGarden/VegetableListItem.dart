@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Vegetable.dart';
+import 'package:pluctis/Pages/VegeGarden/VegeDetailsPage.dart';
 import 'package:provider/provider.dart';
 
 class VegetableListItem extends StatelessWidget {
@@ -55,6 +56,13 @@ class VegetableListItem extends StatelessWidget {
                   child: Text("Détails", style: TextStyle(color: Theme.of(context).accentColor),),
                   onPressed: () {
                     print("Vegetable details pressed");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
+                        value: vegetable,
+                        child: VegeDetailsPage(),
+                      )),
+                    );
                   },
                 ),
               ),

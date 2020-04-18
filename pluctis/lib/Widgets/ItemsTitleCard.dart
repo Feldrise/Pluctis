@@ -57,17 +57,16 @@ class ItemsTitleCard extends StatelessWidget {
                 )
               ],
             ),
-            Visibility(
-              visible: buttons != null && buttons.isNotEmpty,
-              child: ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                itemCount: buttons.length,
-                itemBuilder: (context, index) {
-                  return buttons[index];
-                } 
-              ),
-            ),
+            (buttons != null && buttons.isNotEmpty) ?
+            ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              itemCount: buttons.length,
+              itemBuilder: (context, index) {
+                return buttons[index];
+              } 
+            )
+            : Container(),
           ],
         ),
       ),

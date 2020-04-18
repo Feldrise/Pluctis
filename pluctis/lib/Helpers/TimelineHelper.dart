@@ -8,15 +8,29 @@ Map<Month, String> monthSlug = {
   Month.february: "feb",
   Month.march: "mar",
   Month.april: "apr",
-  Month.march: "mar",
-  Month.april: "apr",
   Month.may: "may",
   Month.june: "jun",
+  Month.july: "jul",
   Month.august: "aug",
   Month.september: "sep",
   Month.october: "oct",
   Month.november: "nov",
   Month.december: "dec"
+};
+
+Map<int, Month> monthFromNumber = {
+  1: Month.january,
+  2: Month.february,
+  3: Month.march,
+  4: Month.april,
+  5: Month.may,
+  6: Month.june,
+  7: Month.july,
+  8: Month.august,
+  9: Month.september,
+  10: Month.october,
+  11: Month.november,
+  12: Month.december,
 };
 
 class TimelineHelper {
