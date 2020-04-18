@@ -140,7 +140,7 @@ class Plant with ChangeNotifier {
 
     if (map[plantInfoColumnSourcesLinks] != null) {
       String sourcesLinkString = map[plantInfoColumnSourcesLinks];
-      sourcesLinks = sourcesLinkString.split(',');
+      sourcesLinks = sourcesLinkString.split('\\');
     }
   }
 

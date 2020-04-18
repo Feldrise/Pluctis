@@ -115,7 +115,7 @@ class PlantsInfoHelper {
     String sourcesLinksString = await plantInfo(slug, "sources_links");
 
     if (sourcesLinksString != null)
-      return sourcesLinksString.split(',');
+      return sourcesLinksString.split('\\');
     
     return [];
   }
