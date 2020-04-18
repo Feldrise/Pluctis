@@ -20,14 +20,14 @@ class VegeProblemDetail extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
+        child: SingleChildScrollView( 
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(problem.name, style: Theme.of(context).textTheme.title,),
-            SingleChildScrollView(
-              child: Column(
+            Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,8 +76,8 @@ class VegeProblemDetail extends StatelessWidget {
                   SizedBox(height: 32,)
                 ],
               )
-            )
           ],
+        ),
         ),
       ),
     );

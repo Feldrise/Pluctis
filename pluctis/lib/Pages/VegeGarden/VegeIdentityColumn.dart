@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Vegetable.dart';
+import 'package:pluctis/Widgets/ItemsCard.dart';
 import 'package:pluctis/Widgets/ItemsTitleCard.dart';
 import 'package:pluctis/Widgets/VegeGarden/Calendar/VegeCalendar.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,12 @@ class VegeIdentityColumn extends StatelessWidget {
                   vegetable.name,
                   "Semi (155 jours)"
                 ],
+              ),
+              
+              ItemsCard(
+                icons: ["spring"],
+                titles: ["Description"],
+                contents: [vegetable.description],
               ),
 
               VegeCalendar(

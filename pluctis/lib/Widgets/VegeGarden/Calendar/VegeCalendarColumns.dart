@@ -46,7 +46,7 @@ class VegeCalendarColumns extends StatelessWidget {
         )
       );
 
-      if (sowMonths != null) {
+      if (sowMonths != null && sowMonths.isNotEmpty) {
         if (sowMonths.contains(monthSlug[currentMonth])) {
           columnItems.add(calendarItem(Colors.yellow));
         }
@@ -55,7 +55,7 @@ class VegeCalendarColumns extends StatelessWidget {
         }
       }
 
-      if (plantationMonths != null) {
+      if (plantationMonths != null && plantationMonths.isNotEmpty) {
         if (plantationMonths.contains(monthSlug[currentMonth])) {
           columnItems.add(calendarItem(Colors.brown));
         }
@@ -64,7 +64,7 @@ class VegeCalendarColumns extends StatelessWidget {
         }
       }
 
-      if (harvestMonths != null) {
+      if (harvestMonths != null && harvestMonths.isNotEmpty) {
         if (harvestMonths.contains(monthSlug[currentMonth])) {
           columnItems.add(calendarItem(Colors.green));
         }

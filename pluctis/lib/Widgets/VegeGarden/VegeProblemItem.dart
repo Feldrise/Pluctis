@@ -20,20 +20,20 @@ class VegeProblemItem extends StatelessWidget {
               child: Image(
                 image: AssetImage("assets/images/vege_problems/${problem.slug}.png"),
                 fit: BoxFit.fill,
-                height: 108,
+                height: 124,
               ),
             ),
-        Container(
-              padding: EdgeInsets.all(16.0),
-              height: 108,
+          Flexible(
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              height: 124,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 24),
-                    child: Text(problem.name, style: Theme.of(context).textTheme.headline,),
+                    child: Text(problem.name, style: Theme.of(context).textTheme.headline),
                   ),
                   FlatButton(
                       child: Text("Détails", style: TextStyle(color: Theme.of(context).accentColor,)),
@@ -49,7 +49,7 @@ class VegeProblemItem extends StatelessWidget {
                 ],
               ),
             ),
-          
+          ),
         ],
       ),
     );

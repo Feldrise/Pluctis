@@ -8,21 +8,23 @@ class VegeIssuesColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Vegetable>(
       builder: (context, vegetable, child) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Problemes", style: Theme.of(context).textTheme.title,),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: vegetable.problems.length,
-              itemBuilder: (context, index) {
-                return VegeProblemItem(problem: vegetable.problems[index],);
-              },
-            )
-          ],
-        
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text("Problemes", style: Theme.of(context).textTheme.title,),
+              ListView.builder(
+                shrinkWrap: true,
+                primary: false,
+                itemCount: vegetable.problems.length,
+                itemBuilder: (context, index) {
+                  return VegeProblemItem(problem: vegetable.problems[index],);
+                },
+              ),
+            ],
+          ),
         );
       },
     );
