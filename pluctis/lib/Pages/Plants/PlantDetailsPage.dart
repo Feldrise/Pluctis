@@ -20,7 +20,7 @@ Map<PlantDetailsTabItem, String> plantDetailsTabName = {
 Map<PlantDetailsTabItem, int> plantDetailsTabIndex = {
   PlantDetailsTabItem.identity: 0,
   PlantDetailsTabItem.information: 1,
-  PlantDetailsTabItem.health: 3,
+  PlantDetailsTabItem.health: 2,
 };
 
 

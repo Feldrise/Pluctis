@@ -68,7 +68,7 @@ class VegeProblemDetail extends StatelessWidget {
                         // colorBlendMode: _plant.isAlive ? null : BlendMode.darken,
                         // color: _plant.isAlive ? null : Colors.black54,
                         // width: 25,
-                        image: AssetImage("assets/images/vege_problems/${problem.slug}.jpg"), 
+                        image: AssetImage("assets/images/vege_problems/${problem.slug}.png"), 
                         fit: BoxFit.cover,
                       ),
                     ),

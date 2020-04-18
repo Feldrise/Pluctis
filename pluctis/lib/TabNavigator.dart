@@ -4,11 +4,13 @@ import 'package:pluctis/Pages/DashboardPage.dart';
 import 'package:pluctis/Pages/Plants/FindPlantPage.dart';
 import 'package:pluctis/Pages/Plants/PlantsPage.dart';
 import 'package:pluctis/Pages/Settings/SettingsPage.dart';
+import 'package:pluctis/Pages/VegeGarden/FindVegetablePage.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeGardenPage.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
   static const String addPlantFindPage = "/addPlantFindPage";
+  static const String addVegetableFindPage = "/addVegetableFindPage";
 }
 
 class TabNavigator extends StatelessWidget {
@@ -47,7 +49,10 @@ class TabNavigator extends StatelessWidget {
 
     if (tabItem == TabItem.vege_garden) {
       return {
-        TabNavigatorRoutes.root: (context) => VegeGardenPage(),
+        TabNavigatorRoutes.root: (context) => VegeGardenPage(
+          onPush: (destinationPage) => _push(context, destinationPage: destinationPage),
+        ),
+        TabNavigatorRoutes.addVegetableFindPage: (context) => FindVegetablePage(),
       };
     }
 

@@ -1,9 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Models/VegetablesList.dart';
 import 'package:pluctis/Widgets/VegeGarden/VegetableListItem.dart';
 import 'package:provider/provider.dart';
 
-class VegeGardenPage extends StatelessWidget {
+class VegeGardenPage extends StatefulWidget {
+  const VegeGardenPage({Key key, @required this.onPush}) : super(key: key);
+
+  final ValueChanged<String> onPush;
+
+  VegeGardenPageState createState() => VegeGardenPageState();
+}
+
+class VegeGardenPageState extends State<VegeGardenPage> {
+  Future _addVegetable(int vegetableCount) async {
+    // InAppPurchaseHelper inAppPurchaseHelper = InAppPurchaseHelper.instance;
+
+    // bool isPremium = await inAppPurchaseHelper.isPremium();
+
+    // if (vegetableCount >= 10 && !isPremium) {
+    //   String addPlantAction = await showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) => PlantLimitReachedDialog()
+    //   );
+
+    //   if (addPlantAction == null || (addPlantAction != "purchase_premium" && addPlantAction != "view_ad")) {
+    //     return;
+    //   }
+
+    //   if (addPlantAction == "purchase_premium") {
+    //     inAppPurchaseHelper.buyPremium();
+    //     return;
+    //   }
+
+    //   if (addPlantAction == "view_ad") {
+    //     AdsHelper.instance.showRewardAd((RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+    //       if (event == RewardedVideoAdEvent.rewarded) {
+    //         widget.onPush('addPlantFindPage');
+    //       }
+    //     });
+
+    //     return;
+    //   }
+    // }
+    
+    widget.onPush('addVegetableFindPage');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<VegetablesList>(context, listen: false).loadFromDatabase();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<VegetablesList>(
@@ -39,6 +89,16 @@ class VegeGardenPage extends StatelessWidget {
                   ),
                 ) 
               ],
+            ),
+          ),
+          floatingActionButton: Container(
+            padding: EdgeInsets.only(bottom: 64),
+            child: FloatingActionButton(
+              tooltip: "Ajouter",
+              child: Icon(Icons.add, color: Colors.white,),
+              onPressed: () async {
+                await _addVegetable(vegetables.allVegetables.length);
+              },
             ),
           ),
         );

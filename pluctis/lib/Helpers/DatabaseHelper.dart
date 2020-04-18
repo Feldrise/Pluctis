@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
+import 'package:pluctis/Helpers/VegeInfoHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Models/Vegetable.dart';
 import 'package:sqflite/sqflite.dart';
 
 final String tablePlants = "plants";
+final String tableVegetables = "vegetables";
 
 String plantColumnId = "_id";
 String plantColumnSlug = "slug";
@@ -18,9 +21,12 @@ String plantColumnSummerCycle = "cycle_summer";
 String plantColumnAutumnCycle = "cycle_autumn";
 String plantColumnNextWatering = "next_watering";
 
+String vegetableColumnId = "_id";
+String vegetableColumnSlug = "slug";
+
 class DatabaseHelper {
   static final _databaseName = "PantasiaDatabase";
-  static final _databaseVersion = 3;
+  static final _databaseVersion = 4;
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -60,10 +66,17 @@ class DatabaseHelper {
             $plantColumnNextWatering INT NOT NULL
           )
           ''');
+
+    await db.execute('''
+          CREATE TABLE $tableVegetables (
+            $plantColumnId INTEGER PRIMARY KEY,
+            $plantColumnSlug TEXT NOT NULL,
+          )
+          ''');
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (newVersion == 3) {
+    if (newVersion >= 3 && oldVersion < 3) {
       await db.execute('DROP TABLE interior_plants');
       await db.execute('DROP TABLE garden_plants');
 
@@ -81,6 +94,14 @@ class DatabaseHelper {
           )
           ''');
     }
+    if (newVersion >= 4 && oldVersion < 4) {
+      await db.execute('''
+          CREATE TABLE $tableVegetables (
+            $plantColumnId INTEGER PRIMARY KEY,
+            $plantColumnSlug TEXT NOT NULL
+          )
+          ''');
+    }
   }  
 
   Future<int> insertPlant(Plant plant) async {
@@ -89,6 +110,13 @@ class DatabaseHelper {
 
     return id;
   } 
+
+  Future<int> insertVegetable(Vegetable vegetable) async {
+    Database db = await database;
+    int id = await db.insert(tableVegetables, {vegetableColumnSlug: vegetable.slug});
+
+    return id;
+  }
 
   Future<Plant> queryPlant(int id) async {
     Database db = await database;
@@ -120,6 +148,29 @@ class DatabaseHelper {
       plant.badAnimals = await plantsInfoHelper.plantInfoBadAnimals(plant.slug);
 
       return plant;
+    }
+
+    return null;
+
+  }
+
+  Future<Vegetable> queryVegetable(int id) async {
+    Database db = await database;
+
+    List<Map> maps = await db.query(tableVegetables,
+      columns: [vegetableColumnId,
+                vegetableColumnSlug],
+      where: '$vegetableColumnId = ?',
+      whereArgs: [id]
+    );
+
+    if (maps.length > 0) {
+      VegeInfoHelper vegeInfoHelper = VegeInfoHelper.instance;
+
+      Vegetable vegetable = await vegeInfoHelper.vegetableFromInfo(maps.first[vegetableColumnSlug]);
+      vegetable.id = maps.first[vegetableColumnId];
+
+      return vegetable;
     }
 
     return null;
@@ -160,6 +211,29 @@ class DatabaseHelper {
     return result;
   }
 
+  
+  Future<List<Vegetable>> queryAllVegetable() async {
+    Database db = await database;
+    List<Vegetable> result = [];
+
+    List<Map> maps = await db.query(tableVegetables,
+      columns: [vegetableColumnId,
+                vegetableColumnSlug],
+    );
+    
+    VegeInfoHelper vegeInfoHelper = VegeInfoHelper.instance;
+
+    for (var vegetable in maps) {
+      Vegetable toAdd = await vegeInfoHelper.vegetableFromInfo(vegetable[vegetableColumnSlug]);
+      toAdd.id = vegetable[vegetableColumnId];
+
+      result.add(toAdd);
+    }
+
+    return result;
+
+  }
+
   Future updatePlant(Plant plant) async {
     Database db = await database;
 
@@ -175,6 +249,15 @@ class DatabaseHelper {
     db.delete(tablePlants,
       where: '$plantColumnId = ?',
       whereArgs: [plant.id]
+    );
+  }
+
+  Future deleteVegetable(Vegetable vegetable) async {
+    Database db = await database;
+
+    db.delete(tableVegetables,
+      where: '$vegetableColumnId = ?',
+      whereArgs: [vegetable.id]
     );
   }
 }

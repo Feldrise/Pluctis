@@ -18,7 +18,7 @@ class VegeProblemItem extends StatelessWidget {
           ClipRRect(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
               child: Image(
-                image: AssetImage("assets/images/vege_problems/${problem.slug}.jpg"),
+                image: AssetImage("assets/images/vege_problems/${problem.slug}.png"),
                 fit: BoxFit.fill,
                 height: 108,
               ),

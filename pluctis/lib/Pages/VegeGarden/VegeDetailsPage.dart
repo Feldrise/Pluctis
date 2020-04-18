@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Dialogs/Plants/RemovePlantDialog.dart';
 import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Models/Vegetable.dart';
+import 'package:pluctis/Models/VegetablesList.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeIdentityColumn.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeInfoColumn.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeIssuesColumn.dart';
@@ -22,6 +24,10 @@ Map<VegeDetailsTabItem, int> plantDetailsTabIndex = {
 
 
 class VegeDetailsPage extends StatefulWidget {
+  const VegeDetailsPage({Key key, this.isAddingVegetable = false}) : super(key: key);
+  
+  final isAddingVegetable;
+
   VegeDetailsPageState createState() => VegeDetailsPageState();
 }
 
@@ -95,6 +101,21 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
   }
 
   Widget _floatingButton(Vegetable vegetable) {
+    if (widget.isAddingVegetable) {
+      return Container(
+        padding: EdgeInsets.only(bottom: 64),
+        child: FloatingActionButton(
+          tooltip: "Valider",
+          backgroundColor: Colors.green,
+          child: Icon(Icons.check, color: Colors.white,),
+          onPressed: () async {
+            print("Valide vegetable presseed");
+            Navigator.of(context).pop(true);
+          },
+        ),
+      );
+    }
+
     return Container(
       padding: EdgeInsets.only(bottom: 64),
       child: FloatingActionButton(
@@ -102,27 +123,27 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
         backgroundColor: Colors.red,
         child: Icon(Icons.delete, color: Colors.white,),
         onPressed: () async {
-          print("Delete plant presseed");
-          // await _removePlant(plant);
+          print("Delete vegetable presseed");
+          await _removeVegetable(vegetable);
         },
       ),
     );
   }
 
-  // Future _removePlant(Plant plant) async {
-  //   bool delete = await showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => RemovePlantDialog(),
-  //   );
+  Future _removeVegetable(Vegetable vegetable) async {
+    bool delete = await showDialog(
+      context: context,
+      builder: (BuildContext context) => RemovePlantDialog(),
+    );
 
-  //   if (delete != null && delete) {
-  //     await Provider.of<PlantsList>(context, listen: false).removePlant(plant);
+    if (delete != null && delete) {
+      await Provider.of<VegetablesList>(context, listen: false).removeVegetable(vegetable);
       
-  //     // We show an ad, with 1/3 chances to appear
-  //     AdsHelper adsHelper = AdsHelper.instance;
-  //     await adsHelper.showInterstitialAd(chanceToShow: 3);
+      // We show an ad, with 1/3 chances to appear
+      AdsHelper adsHelper = AdsHelper.instance;
+      await adsHelper.showInterstitialAd(chanceToShow: 3);
 
-  //     Navigator.of(context).pop();
-  //   }
-  // }
+      Navigator.of(context).pop();
+    }
+  }
 }
