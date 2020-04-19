@@ -1,4 +1,7 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:pluctis/Dialogs/Plants/PlantLimitReachedDialog.dart';
+import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Models/VegetablesList.dart';
 import 'package:pluctis/Widgets/VegeGarden/VegetableListItem.dart';
@@ -14,35 +17,35 @@ class VegeGardenPage extends StatefulWidget {
 
 class VegeGardenPageState extends State<VegeGardenPage> {
   Future _addVegetable(int vegetableCount) async {
-    // InAppPurchaseHelper inAppPurchaseHelper = InAppPurchaseHelper.instance;
+    InAppPurchaseHelper inAppPurchaseHelper = InAppPurchaseHelper.instance;
 
-    // bool isPremium = await inAppPurchaseHelper.isPremium();
+    bool isPremium = await inAppPurchaseHelper.isPremium();
 
-    // if (vegetableCount >= 10 && !isPremium) {
-    //   String addPlantAction = await showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) => PlantLimitReachedDialog()
-    //   );
+    if (vegetableCount >= 10 && !isPremium) {
+      String addPlantAction = await showDialog(
+        context: context,
+        builder: (BuildContext context) => PlantLimitReachedDialog()
+      );
 
-    //   if (addPlantAction == null || (addPlantAction != "purchase_premium" && addPlantAction != "view_ad")) {
-    //     return;
-    //   }
+      if (addPlantAction == null || (addPlantAction != "purchase_premium" && addPlantAction != "view_ad")) {
+        return;
+      }
 
-    //   if (addPlantAction == "purchase_premium") {
-    //     inAppPurchaseHelper.buyPremium();
-    //     return;
-    //   }
+      if (addPlantAction == "purchase_premium") {
+        inAppPurchaseHelper.buyPremium();
+        return;
+      }
 
-    //   if (addPlantAction == "view_ad") {
-    //     AdsHelper.instance.showRewardAd((RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-    //       if (event == RewardedVideoAdEvent.rewarded) {
-    //         widget.onPush('addPlantFindPage');
-    //       }
-    //     });
+      if (addPlantAction == "view_ad") {
+        AdsHelper.instance.showRewardAd((RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+          if (event == RewardedVideoAdEvent.rewarded) {
+            widget.onPush('addVegetableFindPage');
+          }
+        });
 
-    //     return;
-    //   }
-    // }
+        return;
+      }
+    }
     
     widget.onPush('addVegetableFindPage');
   }

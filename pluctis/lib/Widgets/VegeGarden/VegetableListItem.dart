@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Helpers/TimelineHelper.dart';
 import 'package:pluctis/Models/Vegetable.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeDetailsPage.dart';
 import 'package:provider/provider.dart';
@@ -39,13 +40,13 @@ class VegetableListItem extends StatelessWidget {
             SizedBox(height: 8,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(Icons.history),
                 SizedBox(width: 4,),
                 Expanded(
                   flex: 8,
-                  child: Text("Prochaine étape : plantation (155 jours)"),
+                  child: Text(" • Actuellement : ${vegetable.currentState}\n • Prochaine étape : ${TimelineHelper.instance.vegetableNextState(vegetable)}"),
                 )
               ],
             ),

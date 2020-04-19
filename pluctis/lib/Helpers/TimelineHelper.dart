@@ -1,5 +1,6 @@
 
 import 'package:pluctis/Models/Plant.dart';
+import 'package:pluctis/Models/Vegetable.dart';
 
 enum Month { january, february, march, april, may, june, july, august, september, october, november, december }
 
@@ -91,6 +92,44 @@ class TimelineHelper {
     }
 
     return "${remaining.inDays} jours";
+  }
+
+  String vegetableNextState(Vegetable vegetable) {
+    DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+    String result = "Inconnu";
+    
+    int nextMonthInt = (DateTime.now().month < 12) ? (DateTime.now().month + 1) : 1;
+    bool haveNextState = false;
+
+    do {
+      // If we don't find a next state we should leave the loop anyway
+      if (nextMonthInt == DateTime.now().month)
+        break;
+
+      DateTime nextMonth = DateTime(DateTime.now().year + ((nextMonthInt < DateTime.now().month) ? 1 : 0), nextMonthInt, 1, 10, 00);
+      String nextMonthSlug = monthSlug[monthFromNumber[nextMonthInt]];
+      String currentMonthSlug = monthSlug[monthFromNumber[DateTime.now().month]];
+
+      if (vegetable.sowMonths.contains(nextMonthSlug) && (!vegetable.sowMonths.contains(currentMonthSlug) || nextMonthInt < DateTime.now().month)) {
+        result = "Semi (${nextMonth.difference(now).inDays} jour(s))"; 
+        haveNextState = true;
+      }
+
+      if (vegetable.plantMonths.contains(nextMonthSlug) && !vegetable.plantMonths.contains(currentMonthSlug)) {
+        result = "Plantation (${nextMonth.difference(now).inDays} jour(s))"; 
+        haveNextState = true;
+      }
+
+      if (vegetable.harvestMonths.contains(nextMonthSlug) && (!vegetable.harvestMonths.contains(currentMonthSlug) )) {
+        result = "Cueillette (${nextMonth.difference(now).inDays} jour(s))"; 
+        haveNextState = true;
+      }
+
+      nextMonthInt = (nextMonthInt < 12) ? nextMonthInt + 1 : 1;
+
+    } while(!haveNextState);
+
+    return result;
   }
 
 }

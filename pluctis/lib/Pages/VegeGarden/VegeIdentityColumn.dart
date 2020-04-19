@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Helpers/TimelineHelper.dart';
 import 'package:pluctis/Models/Vegetable.dart';
 import 'package:pluctis/Widgets/ItemsCard.dart';
 import 'package:pluctis/Widgets/ItemsTitleCard.dart';
@@ -21,11 +22,11 @@ class VegeIdentityColumn extends StatelessWidget {
                 imageSource: "assets/images/vegetables/${vegetable.slug}.png",
                 titles: [
                   "Nom",
-                  "Prochaine étape"
+                  "Les étapes"
                 ],
                 contents: [
                   vegetable.name,
-                  "Semi (155 jours)"
+                  " • Actuellement : ${vegetable.currentState}\n • Prochaine étape : ${TimelineHelper.instance.vegetableNextState(vegetable)}"
                 ],
               ),
               

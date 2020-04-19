@@ -110,6 +110,11 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
           child: Icon(Icons.check, color: Colors.white,),
           onPressed: () async {
             print("Valide vegetable presseed");
+
+            // We show an ad, with 1/2 chances to appear
+            AdsHelper adsHelper = AdsHelper.instance;
+            await adsHelper.showInterstitialAd(chanceToShow: 2);
+
             Navigator.of(context).pop(true);
           },
         ),

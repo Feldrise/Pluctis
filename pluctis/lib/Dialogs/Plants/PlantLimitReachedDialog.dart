@@ -5,7 +5,7 @@ class PlantLimitReachedDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Nouvelle Plante"),
-      content: Text("Vous avez déjà 5 plantes. Si vous voulez en ajouter plus, vous pouvez regarder une publicité où acheter la version premium de Pluctis"),
+      content: Text("Vous avez atteind la limite de plantes. Si vous voulez en ajouter plus, vous pouvez regarder une publicité où acheter la version premium de Pluctis"),
       actions: <Widget>[
         FlatButton(
           onPressed: () {
