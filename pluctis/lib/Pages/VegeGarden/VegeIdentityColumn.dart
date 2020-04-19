@@ -16,7 +16,7 @@ class VegeIdentityColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Identite", style: Theme.of(context).textTheme.title,),
+              Text("Identité", style: Theme.of(context).textTheme.title,),
               ItemsTitleCard(
                 imageSource: "assets/images/vegetables/${vegetable.slug}.png",
                 titles: [
@@ -36,8 +36,8 @@ class VegeIdentityColumn extends StatelessWidget {
               ),
 
               VegeCalendar(
-                tileHeight: 24,
-                tileWidth: 18,
+                tileHeight: 20,
+                tileWidth: 14,
                 labelWidth: 64,
                 sowMonths: vegetable.sowMonths,
                 plantationMonths: vegetable.plantMonths,

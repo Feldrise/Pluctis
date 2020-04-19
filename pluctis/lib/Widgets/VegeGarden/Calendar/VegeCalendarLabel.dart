@@ -54,7 +54,7 @@ class VegeCalendarLabel extends StatelessWidget {
             height: tileHeight,
             width: tileWidth,
             margin: EdgeInsets.all(2.0),
-            child: Text("Cueilette"),
+            child: Text("Cueillette"),
           )
         ),
       ],

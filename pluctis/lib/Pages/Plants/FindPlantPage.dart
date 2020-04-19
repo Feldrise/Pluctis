@@ -43,7 +43,7 @@ class FindPlantPageState extends State<FindPlantPage> {
         title: Text("Home"),
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: 96, top: 8, left: 8, right: 8),
+        padding: EdgeInsets.only(bottom: 72, top: 8, left: 8, right: 8),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/background.png"),
@@ -62,103 +62,105 @@ class FindPlantPageState extends State<FindPlantPage> {
               ),
               controller: _controller,
             ),
-            FutureBuilder(
-              future: _availablePlants,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Plant> availablePlants = snapshot.data;
+            Expanded(
+              child: FutureBuilder(
+                future: _availablePlants,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Plant> availablePlants = snapshot.data;
 
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: availablePlants.length,
-                    itemBuilder: (context, index) {
-                      return Visibility(
-                        visible: (_filter == null || _filter == "" ) || (availablePlants[index].name.toLowerCase().contains(_filter.toLowerCase()) ),
-                        child: GestureDetector(
-                          child: Card(
-                            margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                            child: Row(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.horizontal(left: Radius.circular(20), right: Radius.circular(0)),
-                                  child: Image(
-                                    height: 96,
-                                    image: AssetImage("assets/images/plants/${availablePlants[index].slug}.png"), 
-                                    fit: BoxFit.fill,
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: availablePlants.length,
+                      itemBuilder: (context, index) {
+                        return Visibility(
+                          visible: (_filter == null || _filter == "" ) || (availablePlants[index].name.toLowerCase().contains(_filter.toLowerCase()) ),
+                          child: GestureDetector(
+                            child: Card(
+                              margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                              child: Row(
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.horizontal(left: Radius.circular(20), right: Radius.circular(0)),
+                                    child: Image(
+                                      height: 96,
+                                      image: AssetImage("assets/images/plants/${availablePlants[index].slug}.png"), 
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Text(availablePlants[index].name),
-                                  ),
-                                )
-                              ],
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(availablePlants[index].name),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          onTap: () async {
-                            print("Plant selected");
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext  context) {
-                                return AlertDialog(
-                                  title: Text("Date du dernier arrosage"),
-                                  content: Text("Veuillez indiquer la date du dernier arrosage"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Choisir", style: TextStyle(color: Theme.of(context).accentColor),),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                );
+                            onTap: () async {
+                              print("Plant selected");
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext  context) {
+                                  return AlertDialog(
+                                    title: Text("Date du dernier arrosage"),
+                                    content: Text("Veuillez indiquer la date du dernier arrosage"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Choisir", style: TextStyle(color: Theme.of(context).accentColor),),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                }
+                              );
+
+                              final DateTime picked = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2015, 8),
+                                lastDate: DateTime(2101)
+                              );
+
+                              if (picked == null) {
+                                Navigator.of(context).pop();
+                                return;
                               }
-                            );
 
-                            final DateTime picked = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2015, 8),
-                              lastDate: DateTime(2101)
-                            );
+                              bool haveNewPlant = await Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
+                                  value: availablePlants[index],
+                                  child: AddPlantPage(),
+                                )),
+                              );
 
-                            if (picked == null) {
+                              if (haveNewPlant != null && haveNewPlant) {
+                                Plant newPlant = availablePlants[index]; 
+                                newPlant.nextWatering = DateTime.now();
+                                
+                                await Provider.of<PlantsList>(context, listen: false).addPlant(newPlant);
+                                await Provider.of<PlantsList>(context, listen: false).updatePlantWatering(picked, newPlant);
+                              }
+
                               Navigator.of(context).pop();
-                              return;
-                            }
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  else if(snapshot.hasError) {
+                    return Text("Nous n'avons pas pu récupérer de plante de notre base de données...\n${snapshot.error}");
+                  }
 
-                            bool haveNewPlant = await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
-                                value: availablePlants[index],
-                                child: AddPlantPage(),
-                              )),
-                            );
-
-                            if (haveNewPlant != null && haveNewPlant) {
-                              Plant newPlant = availablePlants[index]; 
-                              newPlant.nextWatering = DateTime.now();
-                              
-                              await Provider.of<PlantsList>(context, listen: false).addPlant(newPlant);
-                              await Provider.of<PlantsList>(context, listen: false).updatePlantWatering(picked, newPlant);
-                            }
-
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      );
-                    },
-                  );
-                }
-                else if(snapshot.hasError) {
-                  return Text("Nous n'avons pas pu récupérer de plante de notre base de données...\n${snapshot.error}");
-                }
-
-                // By default, show a loading spinner.
-                return Center(child: CircularProgressIndicator());
-              },
-            )
+                  // By default, show a loading spinner.
+                  return Center(child: CircularProgressIndicator());
+                },
+              )
+            ),
           ],
         ),
       ),

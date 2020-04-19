@@ -43,7 +43,7 @@ class FindVegetablePageState extends State<FindVegetablePage> {
         title: Container(),
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: 96, top: 8, left: 8, right: 8),
+        padding: EdgeInsets.only(bottom: 72, top: 8, left: 8, right: 8),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/background.png"),
@@ -62,72 +62,74 @@ class FindVegetablePageState extends State<FindVegetablePage> {
               ),
               controller: _controller,
             ),
-            FutureBuilder(
-              future: _availableVegetables,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Vegetable> availableVegetables = snapshot.data;
+            Expanded(
+              child: FutureBuilder(
+                future: _availableVegetables,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Vegetable> availableVegetables = snapshot.data;
 
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: availableVegetables.length,
-                    itemBuilder: (context, index) {
-                      return Visibility(
-                        visible: (_filter == null || _filter == "" ) || (availableVegetables[index].name.toLowerCase().contains(_filter.toLowerCase()) ),
-                        child: GestureDetector(
-                          child: Card(
-                            margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                            child: Row(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.horizontal(left: Radius.circular(20), right: Radius.circular(0)),
-                                  child: Image(
-                                    height: 96,
-                                    image: AssetImage("assets/images/vegetables/${availableVegetables[index].slug}.png"), 
-                                    fit: BoxFit.fill,
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: availableVegetables.length,
+                      itemBuilder: (context, index) {
+                        return Visibility(
+                          visible: (_filter == null || _filter == "" ) || (availableVegetables[index].name.toLowerCase().contains(_filter.toLowerCase()) ),
+                          child: GestureDetector(
+                            child: Card(
+                              margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                              child: Row(
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.horizontal(left: Radius.circular(20), right: Radius.circular(0)),
+                                    child: Image(
+                                      height: 96,
+                                      image: AssetImage("assets/images/vegetables/${availableVegetables[index].slug}.png"), 
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Text(availableVegetables[index].name),
-                                  ),
-                                )
-                              ],
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(availableVegetables[index].name),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
+                            onTap: () async {
+                              print("Plant selected");
+
+                              bool haveNewVegetable = await Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
+                                  value: availableVegetables[index],
+                                  child: VegeDetailsPage(isAddingVegetable: true,),
+                                )),
+                              );
+
+                              if (haveNewVegetable != null && haveNewVegetable) {
+                                Vegetable newVegetable = availableVegetables[index]; 
+                                
+                                await Provider.of<VegetablesList>(context, listen: false).addVegetable(newVegetable);
+                              }
+
+                              Navigator.of(context).pop();
+                            },
                           ),
-                          onTap: () async {
-                            print("Plant selected");
+                        );
+                      },
+                    );
+                  }
+                  else if(snapshot.hasError) {
+                    return Text("Nous n'avons pas pu récupérer de plante de notre base de données...\n${snapshot.error}");
+                  }
 
-                            bool haveNewVegetable = await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
-                                value: availableVegetables[index],
-                                child: VegeDetailsPage(isAddingVegetable: true,),
-                              )),
-                            );
-
-                            if (haveNewVegetable != null && haveNewVegetable) {
-                              Vegetable newVegetable = availableVegetables[index]; 
-                              
-                              await Provider.of<VegetablesList>(context, listen: false).addVegetable(newVegetable);
-                            }
-
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      );
-                    },
-                  );
-                }
-                else if(snapshot.hasError) {
-                  return Text("Nous n'avons pas pu récupérer de plante de notre base de données...\n${snapshot.error}");
-                }
-
-                // By default, show a loading spinner.
-                return Center(child: CircularProgressIndicator());
-              },
-            )
+                  // By default, show a loading spinner.
+                  return Center(child: CircularProgressIndicator());
+                },
+              )
+            ),
           ],
         ),
       ),

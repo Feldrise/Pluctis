@@ -34,7 +34,7 @@ class SettingsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Text("Parametres", style: Theme.of(context).textTheme.title,),
+                        Text("Paramètres", style: Theme.of(context).textTheme.title,),
                         Card(
                           margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                           child: Padding(

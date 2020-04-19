@@ -76,6 +76,14 @@ class VegeGardenPageState extends State<VegeGardenPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text("Potager", style: Theme.of(context).textTheme.title,),
+                Visibility(
+                  child: Expanded(
+                    child: Center(
+                      child: Text("Vous n'avez rien dans votre potager pour le moment. Appuyer sur \"+\" pour en ajouter.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline,) 
+                    ),
+                  ),
+                  visible: vegetables.allVegetables.isEmpty,
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: vegetables.allVegetables.length,

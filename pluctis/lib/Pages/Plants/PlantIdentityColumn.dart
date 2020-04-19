@@ -15,7 +15,7 @@ class PlantIdentityColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Identite", style: Theme.of(context).textTheme.title,),
+              Text("Identité", style: Theme.of(context).textTheme.title,),
               ItemsTitleCard(
                 imageSource: "assets/images/plants/${plant.slug}.png",
                 titles: [

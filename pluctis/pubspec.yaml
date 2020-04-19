@@ -80,12 +80,12 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  fonts:
-    - family: NanumBrushScript
-      fonts:
-        - asset: fonts/NanumBrushScript-Regular.ttf
-        - asset: fonts/NanumBrushScript-Italic.ttf
-          style: italic
+  # fonts:
+  #   - family: NanumBrushScript
+  #     fonts:
+  #       - asset: fonts/NanumBrushScript-Regular.ttf
+  #       - asset: fonts/NanumBrushScript-Italic.ttf
+  #         style: italic
 
   #
   # For details regarding fonts from package dependencies,

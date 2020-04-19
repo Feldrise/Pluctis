@@ -29,7 +29,7 @@ class VegeInfoColumn extends StatelessWidget {
 
               ItemsCard(
                 icons: ['sun_exposure'],
-                titles: ["La cueilette"],
+                titles: ["La cueillette"],
                 contents: [vegetable.infoHarvesting],
               )
             ],

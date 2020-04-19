@@ -19,8 +19,9 @@ class VegeProblemItem extends StatelessWidget {
               borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
               child: Image(
                 image: AssetImage("assets/images/vege_problems/${problem.slug}.png"),
-                fit: BoxFit.fill,
+                fit: BoxFit.fitHeight,
                 height: 124,
+                width: 92,
               ),
             ),
           Flexible(

@@ -14,7 +14,7 @@ class VegeIssuesColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Problemes", style: Theme.of(context).textTheme.title,),
+              Text("Problèmes", style: Theme.of(context).textTheme.title,),
               ListView.builder(
                 shrinkWrap: true,
                 primary: false,

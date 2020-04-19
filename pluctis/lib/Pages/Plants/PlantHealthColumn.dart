@@ -14,7 +14,7 @@ class PlantHealthColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Santee", style: Theme.of(context).textTheme.title,),
+              Text("Santée", style: Theme.of(context).textTheme.title,),
               // We only show this if there is no data for health
               Visibility(
                 visible: 

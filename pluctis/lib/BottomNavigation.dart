@@ -66,14 +66,15 @@ class BottomNavigation extends StatelessWidget {
     //   ),
     // );
 
-    return Card(
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+        color: Theme.of(context).accentColor,
       ),
-      color: Theme.of(context).accentColor,
       margin: EdgeInsets.all(0),
-      child: Padding(
-        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+      height: 72,
+      child: Align(
+        alignment: Alignment.bottomCenter,
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: tabIndex[currentTab],

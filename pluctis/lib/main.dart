@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 color: applicationStyle.cardColor,
-                margin: EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 16)
+                margin: EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 8)
               ),
 
               appBarTheme: AppBarTheme(
@@ -50,10 +50,13 @@ class MyApp extends StatelessWidget {
               ),
 
               textTheme: TextTheme(
-                title: TextStyle(fontSize: 54.0, fontFamily: 'NanumBrushScript', fontStyle: FontStyle.italic, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
+                title: TextStyle(fontSize: 38.0, fontWeight: FontWeight.w500, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
+                subtitle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w200, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
                 headline: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
-                subhead: TextStyle(fontSize: 20, fontWeight: FontWeight.w300, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
-                body1: TextStyle(fontSize: 14.0),
+                subhead: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w300, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
+                body1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
+                body2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white),
+                caption: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white)
               ),
             ),
             home: MainPage()

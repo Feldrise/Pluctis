@@ -94,6 +94,7 @@ class DashboardPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[ 
+                Text("Tableau de bord", style: Theme.of(context).textTheme.title,),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -101,8 +102,6 @@ class DashboardPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Tableau de bord", style: Theme.of(context).textTheme.title,),
-
                         // The plants who really need watering
                         Visibility(
                           visible: _unhappyPlant.isNotEmpty,
