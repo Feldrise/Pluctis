@@ -31,7 +31,7 @@ class VegeIdentityColumn extends StatelessWidget {
               ),
               
               ItemsCard(
-                icons: ["spring"],
+                icons: ["vegetables"],
                 titles: ["Description"],
                 contents: [vegetable.description],
               ),

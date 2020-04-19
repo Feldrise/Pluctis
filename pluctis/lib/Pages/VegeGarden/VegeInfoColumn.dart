@@ -16,19 +16,19 @@ class VegeInfoColumn extends StatelessWidget {
             children: <Widget>[
               Text("Informations", style: Theme.of(context).textTheme.title,),
               ItemsCard(
-                icons: ['pot'],
+                icons: ['sowing'],
                 titles: ["La semi"],
                 contents: [vegetable.infoSowing],
               ),
 
               ItemsCard(
-                icons: ['water_cycle'],
+                icons: ['growing'],
                 titles: ["Quand la plante pousse"],
                 contents: [vegetable.infoGrowing],
               ),
 
               ItemsCard(
-                icons: ['sun_exposure'],
+                icons: ['harvesting'],
                 titles: ["La cueillette"],
                 contents: [vegetable.infoHarvesting],
               )
