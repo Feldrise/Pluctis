@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Widgets/ItemsCard.dart';
 import 'package:pluctis/Widgets/ItemsTitleCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:provider/provider.dart';
 
 class PlantIdentityColumn extends StatelessWidget {
@@ -15,9 +16,10 @@ class PlantIdentityColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Identité", style: Theme.of(context).textTheme.title,),
+              PluctisTitle(title: "Identité"),
               ItemsTitleCard(
                 imageSource: "assets/images/plants/${plant.slug}.png",
+                invert: true,
                 titles: [
                   "Nom",
                   "Lieu"
@@ -36,6 +38,7 @@ class PlantIdentityColumn extends StatelessWidget {
                 ],
               ),
               ItemsCard(
+                invert: true,
                 icons: [
                   'winter',
                   'spring',

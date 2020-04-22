@@ -1,11 +1,13 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pluctis/Dialogs/Plants/PlantLimitReachedDialog.dart';
 import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantGridItem.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:provider/provider.dart';
 
 class PlantsPage extends StatefulWidget {
@@ -82,7 +84,7 @@ class PlantsPageState extends State<PlantsPage> {
         return;
       }
     }
-    
+
     widget.onPush('addPlantFindPage');
   }
 
@@ -95,58 +97,67 @@ class PlantsPageState extends State<PlantsPage> {
             title: Container()
           ),
           body: Container(
-            padding: EdgeInsets.only(bottom: 72, left: 8, right: 8),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+            // padding: EdgeInsets.only(left: 8, right: 8),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage("assets/images/background.png"),
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Plantes", style: Theme.of(context).textTheme.title, textAlign: TextAlign.left,),
+                PluctisTitle(title: "Plantes"),
                 Visibility(
+                  visible: plants.allPlants.isEmpty,
                   child: Expanded(
-                    child: Center(
-                      child: Text("Vous n'avez aucune fleur d'intérieur pour le moment. Appuyer sur \"+\" pour en ajouter.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline,) 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          'assets/svg/spring.svg',
+                          semanticsLabel: "Icon",
+                          height: 92,
+                        ),
+                        Text("Vous n'avez pas de plante pour le moment. Appuyer sur \"+\" pour en ajouter.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.subhead,) 
+                      ],
                     ),
                   ),
-                  visible: plants.allPlants.isEmpty,
                 ),
-                Expanded(
-                  child: StaggeredGridView.countBuilder(
-                    scrollDirection: Axis.vertical,
-                    // primary: false,
-                    crossAxisCount: crossAxisCount,
-                    itemCount: plants.allPlants.length,
-                    itemBuilder: (context, index) {
-                      var plant = plants.allPlants[index];
-                      return ChangeNotifierProvider.value(
-                        value: plant,
-                        child: PlantGridItem(onPush: widget.onPush,),
-                      );
-                    }, 
-                    staggeredTileBuilder: (int index) {
-                      return StaggeredTile.extent(crossAxisTileCount, index.isEven ? 300 : 364);
-                    },
-                    mainAxisSpacing: 4.0,
-                    crossAxisSpacing: 4.0,
-                  ),
-                )
+                Visibility(
+                  visible: plants.allPlants.isNotEmpty,
+                  child: Expanded(
+                    child: StaggeredGridView.countBuilder(
+                      scrollDirection: Axis.vertical,
+                      // primary: false,
+                      crossAxisCount: crossAxisCount,
+                      itemCount: plants.allPlants.length,
+                      itemBuilder: (context, index) {
+                        var plant = plants.allPlants[index];
+                        return ChangeNotifierProvider.value(
+                          value: plant,
+                          child: PlantGridItem(onPush: widget.onPush,),
+                        );
+                      },
+                      staggeredTileBuilder: (int index) {
+                        return StaggeredTile.extent(crossAxisTileCount, index.isEven ? 264 : 328);
+                      },
+                      mainAxisSpacing: 4.0,
+                      crossAxisSpacing: 4.0,
+                    ),
+                  )
+                ),
               ],
             )
           ),
-          floatingActionButton: Container(
-            padding: EdgeInsets.only(bottom: 64),
-            child: FloatingActionButton(
-              tooltip: "Editer",
-              child: Icon(Icons.add, color: Colors.white,),
-              onPressed: () async {
-                await _addPlant(plants.allPlants.length);
-              },
-            ),
+          floatingActionButton: FloatingActionButton(
+            tooltip: "Editer",
+            child: Icon(Icons.add, color: Colors.white,),
+            onPressed: () async {
+              await _addPlant(plants.allPlants.length);
+            },
+
           ),
         );
       }

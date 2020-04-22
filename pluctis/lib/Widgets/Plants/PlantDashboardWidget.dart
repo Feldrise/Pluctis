@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Helpers/TimelineHelper.dart';
+import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:provider/provider.dart';
@@ -16,17 +17,17 @@ class PlantDashboardWidget extends StatelessWidget {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: Colors.transparent,
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(8.0),
             boxShadow: [
               BoxShadow(
-                color: Colors.black26,
+                color: Provider.of<ApplicationSettings>(context, listen: false).brightness == Brightness.dark ? Colors.black26 : Colors.black12,
                 offset: const Offset(0.0, 0.0),
               ),
               BoxShadow(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 offset: const Offset(0.0, 0.0),
-                spreadRadius: -8.0,
-                blurRadius: 8.0,
+                spreadRadius: -10.0,
+                blurRadius: 15.0,
               ),
             ],
           ),
@@ -34,13 +35,13 @@ class PlantDashboardWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(66),
-                  child: Image(
-                    image: AssetImage("assets/images/plants/${plant.slug}.png"),
-                    fit: BoxFit.fill,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: Image(
+                  image: AssetImage("assets/images/plants/${plant.slug}.png"),
+                  width: 64,
+                  height: 64,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
               SizedBox(height: 12,),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Vegetable.dart';
 import 'package:pluctis/Widgets/ItemsCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:provider/provider.dart';
 
 class VegeInfoColumn extends StatelessWidget {
@@ -14,10 +15,10 @@ class VegeInfoColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Informations", style: Theme.of(context).textTheme.title,),
+              PluctisTitle(title: "Informations"),
               ItemsCard(
                 icons: ['sowing'],
-                titles: ["La semi"],
+                titles: ["La semis"],
                 contents: [vegetable.infoSowing],
               ),
 

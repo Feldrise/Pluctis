@@ -1,9 +1,11 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pluctis/Dialogs/Plants/PlantLimitReachedDialog.dart';
 import 'package:pluctis/Helpers/AdsHelper.dart';
 import 'package:pluctis/Helpers/InAppPurchaseHelper.dart';
 import 'package:pluctis/Models/VegetablesList.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:pluctis/Widgets/VegeGarden/VegetableListItem.dart';
 import 'package:provider/provider.dart';
 
@@ -66,51 +68,59 @@ class VegeGardenPageState extends State<VegeGardenPage> {
             title: Container(),
           ),
           body: Container(
-            padding: EdgeInsets.only(bottom: 64, left: 8, right: 8),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+            // padding: EdgeInsets.only(bottom: 64, left: 8, right: 8),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage("assets/images/background.png"),
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text("Potager", style: Theme.of(context).textTheme.title,),
+                PluctisTitle(title: "Potager"),
                 Visibility(
+                  visible: vegetables.allVegetables.isEmpty,
                   child: Expanded(
-                    child: Center(
-                      child: Text("Vous n'avez rien dans votre potager pour le moment. Appuyer sur \"+\" pour en ajouter.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline,) 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          'assets/svg/vegetables.svg',
+                          semanticsLabel: "Icon",
+                          height: 92,
+                        ),
+                        Text("Vous n'avez rien dans votre potager pour le moment. Appuyer sur \"+\" pour en ajouter.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.subhead,) 
+                      ],
                     ),
                   ),
-                  visible: vegetables.allVegetables.isEmpty,
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: vegetables.allVegetables.length,
-                    itemBuilder: (context, index) {
-                      var vegetable = vegetables.allVegetables[index];
-                      return ChangeNotifierProvider.value(
-                        value: vegetable,
-                        child: VegetableListItem(),
-                      );
-                    }, 
-                  ),
-                ) 
+                Visibility(
+                  visible: vegetables.allVegetables.isNotEmpty,
+                  child: Expanded(
+                    child: ListView.builder(
+                      itemCount: vegetables.allVegetables.length,
+                      itemBuilder: (context, index) {
+                        var vegetable = vegetables.allVegetables[index];
+                        return ChangeNotifierProvider.value(
+                          value: vegetable,
+                          child: VegetableListItem(),
+                        );
+                      }, 
+                    ),
+                  ) 
+                ),
               ],
             ),
           ),
-          floatingActionButton: Container(
-            padding: EdgeInsets.only(bottom: 64),
-            child: FloatingActionButton(
-              tooltip: "Ajouter",
-              child: Icon(Icons.add, color: Colors.white,),
-              onPressed: () async {
-                await _addVegetable(vegetables.allVegetables.length);
-              },
-            ),
+          floatingActionButton: FloatingActionButton(
+            tooltip: "Ajouter",
+            child: Icon(Icons.add, color: Colors.white,),
+            onPressed: () async {
+              await _addVegetable(vegetables.allVegetables.length);
+            },
           ),
         );
       },

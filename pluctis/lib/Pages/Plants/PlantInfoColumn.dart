@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Widgets/ItemsCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:pluctis/Widgets/UrlItemsCard.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +16,7 @@ class PlantInfoColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Informations", style: Theme.of(context).textTheme.title,),
-              UrlItemsCard(
-                title: "Nos sources : ",
-                urls: plant.sourcesLinks,
-              ),
+              PluctisTitle(title: "Informations"),
 
               ItemsCard(
                 icons: ['pot'],
@@ -37,7 +34,13 @@ class PlantInfoColumn extends StatelessWidget {
                 icons: ['sun_exposure'],
                 titles: ["Conseil pour l'exposition"],
                 contents: [plant.infoExposure],
-              )
+              ),
+
+              UrlItemsCard(
+                title: "Nos sources : ",
+                urls: plant.sourcesLinks,
+              ),
+
             ],
           ),
         );

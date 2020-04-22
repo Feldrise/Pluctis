@@ -73,13 +73,13 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
               title: Container(),
             ),
             body: Container(
-              padding: EdgeInsets.only(bottom: 72, left: 8, right: 8),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // padding: EdgeInsets.only(bottom: 72, left: 8, right: 8),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage("assets/images/background.png"),
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               child: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
@@ -102,36 +102,31 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
 
   Widget _floatingButton(Vegetable vegetable) {
     if (widget.isAddingVegetable) {
-      return Container(
-        padding: EdgeInsets.only(bottom: 64),
-        child: FloatingActionButton(
-          tooltip: "Valider",
-          backgroundColor: Colors.green,
-          child: Icon(Icons.check, color: Colors.white,),
-          onPressed: () async {
-            print("Valide vegetable presseed");
+      return FloatingActionButton(
+        tooltip: "Valider",
+        backgroundColor: Colors.green,
+        child: Icon(Icons.check, color: Colors.white,),
+        onPressed: () async {
+          print("Valide vegetable presseed");
 
-            // We show an ad, with 1/2 chances to appear
-            AdsHelper adsHelper = AdsHelper.instance;
-            await adsHelper.showInterstitialAd(chanceToShow: 2);
+          // We show an ad, with 1/2 chances to appear
+          AdsHelper adsHelper = AdsHelper.instance;
+          await adsHelper.showInterstitialAd(chanceToShow: 2);
 
-            Navigator.of(context).pop(true);
-          },
-        ),
+          Navigator.of(context).pop(true);
+        },
       );
     }
 
-    return Container(
-      padding: EdgeInsets.only(bottom: 64),
-      child: FloatingActionButton(
-        tooltip: "Supprimer",
-        backgroundColor: Colors.red,
-        child: Icon(Icons.delete, color: Colors.white,),
-        onPressed: () async {
-          print("Delete vegetable presseed");
-          await _removeVegetable(vegetable);
-        },
-      ),
+    return FloatingActionButton(
+      tooltip: "Supprimer",
+      backgroundColor: Colors.red,
+      child: Icon(Icons.delete, color: Colors.white,),
+      onPressed: () async {
+        print("Delete vegetable presseed");
+        await _removeVegetable(vegetable);
+      },
+      
     );
   }
 

@@ -50,7 +50,7 @@ class Vegetable with ChangeNotifier {
       sowMonths = sowMonthsString.split(',');
 
       if (sowMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]]))
-        currentState = "Semi";
+        currentState = "Semis";
     }
 
     if (map[vegeInfoColumnPlantMonths] != null) {

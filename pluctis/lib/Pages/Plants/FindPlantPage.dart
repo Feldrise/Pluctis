@@ -3,6 +3,8 @@ import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Pages/Plants/AddPlantPage.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:provider/provider.dart';
 
 class FindPlantPage extends StatefulWidget {
@@ -43,24 +45,27 @@ class FindPlantPageState extends State<FindPlantPage> {
         title: Text("Home"),
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: 72, top: 8, left: 8, right: 8),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // padding: EdgeInsets.only(bottom: 72, top: 8, left: 8, right: 8),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage("assets/images/background.png"),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Choisir une plante", style: Theme.of(context).textTheme.title,),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Nom de la plante",
+            PluctisTitle(title: "Choisir une plante"),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: "Nom de la plante",
+                ),
+                controller: _controller,
               ),
-              controller: _controller,
             ),
             Expanded(
               child: FutureBuilder(
@@ -76,12 +81,13 @@ class FindPlantPageState extends State<FindPlantPage> {
                         return Visibility(
                           visible: (_filter == null || _filter == "" ) || (availablePlants[index].name.toLowerCase().contains(_filter.toLowerCase()) ),
                           child: GestureDetector(
-                            child: Card(
+                            child: PluctisCard(
                               margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                              padding: EdgeInsets.only(right: 8.0),
                               child: Row(
                                 children: <Widget>[
                                   ClipRRect(
-                                    borderRadius: BorderRadius.horizontal(left: Radius.circular(20), right: Radius.circular(0)),
+                                    borderRadius: BorderRadius.horizontal(left: Radius.circular(16), right: Radius.circular(0)),
                                     child: Image(
                                       height: 96,
                                       image: AssetImage("assets/images/plants/${availablePlants[index].slug}.png"), 

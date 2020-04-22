@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
 
 class ItemsTitleCard extends StatelessWidget {
   const ItemsTitleCard({Key key, 
                    @required this.imageSource,
                    @required this.titles,
                    @required this.contents,
+                   this.invert = false,
                    this.buttons,
   }) : assert(titles.length == contents.length);
 
@@ -14,61 +16,59 @@ class ItemsTitleCard extends StatelessWidget {
   final List<String> contents;
   final List<Widget> buttons;
 
+  final bool invert;
+
   @override
   Widget build(BuildContext context) {    
-    return Card(
+    return PluctisCard(
       margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-      child: Padding(
-        padding: EdgeInsets.only(left: 8, right: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // We show the image
-                Expanded(
-                  flex: 4,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(66),
-                    child: Image(
-                      image: AssetImage(imageSource),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // We show the image
+              ClipRRect(
+                borderRadius: BorderRadius.circular(46),
+                child: Image(
+                  image: AssetImage(imageSource),
+                  width: 92,
+                  height: 92,
+                  fit: BoxFit.fitHeight,
                 ),
-                // We show the fields
-                Expanded(
-                  flex: 6,
-                  child: ListView.builder(
-                    primary: false,
-                    shrinkWrap: true,
-                    itemCount: titles.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(titles[index]), 
-                        subtitle: Text(contents[index]),
-                      );
-                      // return Text(titles[index]);
-                    } 
-                  ),
-                )
-              ],
-            ),
-            (buttons != null && buttons.isNotEmpty) ?
-            ListView.builder(
-              primary: false,
-              shrinkWrap: true,
-              itemCount: buttons.length,
-              itemBuilder: (context, index) {
-                return buttons[index];
-              } 
-            )
-            : Container(),
-          ],
-        ),
+              ),
+              
+              // We show the fields
+              Expanded(
+                child: ListView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  itemCount: titles.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: invert ? Text(contents[index]) : Text(titles[index]),
+                      subtitle: invert ? Text(titles[index]) : Text(contents[index]), 
+                    );
+                    // return Text(titles[index]);
+                  } 
+                ),
+              )
+            ],
+          ),
+          (buttons != null && buttons.isNotEmpty) ?
+          ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            itemCount: buttons.length,
+            itemBuilder: (context, index) {
+              return buttons[index];
+            } 
+          )
+          : Container(),
+        ],
       ),
     );
   }

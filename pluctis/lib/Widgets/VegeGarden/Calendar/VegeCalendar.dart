@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
 import 'package:pluctis/Widgets/VegeGarden/Calendar/VegeCalendarColumns.dart';
 import 'package:pluctis/Widgets/VegeGarden/Calendar/VegeCalendarLabel.dart';
 
@@ -22,7 +23,7 @@ class VegeCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return PluctisCard(
       margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
       child: Padding(
         padding: EdgeInsets.all(4),

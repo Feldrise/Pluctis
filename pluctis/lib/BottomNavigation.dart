@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pluctis/Models/ApplicationSettings.dart';
+import 'package:provider/provider.dart';
 
 enum TabItem { dashboard, plants, vege_garden, settings }
 
@@ -68,11 +70,16 @@ class BottomNavigation extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border(
+          top: BorderSide( //                    <--- top side
+            color: Colors.black26,
+            width: 0.4,
+          ),
+        ),
       ),
       margin: EdgeInsets.all(0),
-      height: 72,
+      height: 64,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: BottomNavigationBar(
@@ -87,9 +94,9 @@ class BottomNavigation extends StatelessWidget {
           onTap: (index) => onSelectTab(
             TabItem.values[index],
           ),
-          backgroundColor: Theme.of(context).accentColor,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white54,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          selectedItemColor: Theme.of(context).accentColor,
+          unselectedItemColor: Provider.of<ApplicationSettings>(context, listen: false).brightness == Brightness.dark ? Colors.white24 : Colors.black26,
           iconSize: 24,
           elevation: 0,
         ),

@@ -42,8 +42,8 @@ class AdsHelper {
 
     bool loaded = await RewardedVideoAd.instance.load(adUnitId: getRewardInteriorAdUnitId(), targetingInfo: _adTargetingInfo);
     if (loaded) {
-      RewardedVideoAd.instance.show();
       RewardedVideoAd.instance.listener = listener;
+      await RewardedVideoAd.instance.show();
     }
   }
 

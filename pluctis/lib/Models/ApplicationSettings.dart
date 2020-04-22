@@ -16,7 +16,7 @@ class ApplicationSettings with ChangeNotifier {
   var _lightCardColor = Color(0xffffffff);
   var _darkCardColor = Color(0xff2C313B);
 
-  var _accentColor = Color(0xff8e24aa);
+  var _accentColor = Color(0xffd81b60);
 
   TimeOfDay _notificationTime = TimeOfDay(hour: 10, minute: 00);
 

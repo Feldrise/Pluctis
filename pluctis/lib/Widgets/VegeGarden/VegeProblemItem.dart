@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/VegeProblem.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeProblemDetail.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
 
 class VegeProblemItem extends StatelessWidget {
   const VegeProblemItem({@required this.problem});
@@ -9,14 +10,15 @@ class VegeProblemItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return PluctisCard(
       margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+      padding: EdgeInsets.only(right: 8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
               child: Image(
                 image: AssetImage("assets/images/vege_problems/${problem.slug}.png"),
                 fit: BoxFit.fitHeight,

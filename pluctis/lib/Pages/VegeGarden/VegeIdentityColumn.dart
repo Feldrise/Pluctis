@@ -3,6 +3,7 @@ import 'package:pluctis/Helpers/TimelineHelper.dart';
 import 'package:pluctis/Models/Vegetable.dart';
 import 'package:pluctis/Widgets/ItemsCard.dart';
 import 'package:pluctis/Widgets/ItemsTitleCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:pluctis/Widgets/VegeGarden/Calendar/VegeCalendar.dart';
 import 'package:provider/provider.dart';
 
@@ -17,15 +18,15 @@ class VegeIdentityColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Identité", style: Theme.of(context).textTheme.title,),
+              PluctisTitle(title: "Identité"),
               ItemsTitleCard(
                 imageSource: "assets/images/vegetables/${vegetable.slug}.png",
                 titles: [
-                  "Nom",
+                  vegetable.name,
                   "Les étapes"
                 ],
                 contents: [
-                  vegetable.name,
+                  "Nom",
                   " • Actuellement : ${vegetable.currentState}\n • Prochaine étape : ${TimelineHelper.instance.vegetableNextState(vegetable)}"
                 ],
               ),
@@ -43,7 +44,9 @@ class VegeIdentityColumn extends StatelessWidget {
                 sowMonths: vegetable.sowMonths,
                 plantationMonths: vegetable.plantMonths,
                 harvestMonths: vegetable.harvestMonths,
-              )
+              ),
+
+              SizedBox(height: 64,)
             ],
           ),
         );

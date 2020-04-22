@@ -59,16 +59,11 @@ class MainPageState extends State<MainPage> {
           _buildOffstageNavigator(TabItem.plants),
           _buildOffstageNavigator(TabItem.vege_garden),
           _buildOffstageNavigator(TabItem.settings),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: BottomNavigation(
-              currentTab: _currentTab,
-              onSelectTab: _selectTab,
-            ),
-          )
         ]),
+        bottomNavigationBar: BottomNavigation(
+          currentTab: _currentTab,
+          onSelectTab: _selectTab,
+        ),
       ),
     );
   }

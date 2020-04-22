@@ -111,7 +111,7 @@ class TimelineHelper {
       String currentMonthSlug = monthSlug[monthFromNumber[DateTime.now().month]];
 
       if (vegetable.sowMonths.contains(nextMonthSlug) && (!vegetable.sowMonths.contains(currentMonthSlug) || nextMonthInt < DateTime.now().month)) {
-        result = "Semi (${nextMonth.difference(now).inDays} jour(s))"; 
+        result = "Semis (${nextMonth.difference(now).inDays} jour(s))"; 
         haveNextState = true;
       }
 

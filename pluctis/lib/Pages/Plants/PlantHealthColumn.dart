@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Widgets/ItemsCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:provider/provider.dart';
 
 class PlantHealthColumn extends StatelessWidget {
@@ -14,7 +15,7 @@ class PlantHealthColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Santée", style: Theme.of(context).textTheme.title,),
+              PluctisTitle(title: "Santé"),
               // We only show this if there is no data for health
               Visibility(
                 visible: 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/VegeProblem.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 
 class VegeProblemDetail extends StatelessWidget {
   const VegeProblemDetail({Key key, @required this.problem}) : super(key: key);
@@ -13,57 +15,53 @@ class VegeProblemDetail extends StatelessWidget {
         title: Container(),
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: 64, left: 8, right: 8),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // padding: EdgeInsets.only(bottom: 64, left: 8, right: 8),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage("assets/images/background.png"),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: SingleChildScrollView( 
           child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(problem.name, style: Theme.of(context).textTheme.title,),
+            PluctisTitle(title: problem.name),
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Card(
+                  PluctisCard(
                     margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Symptomes", style: Theme.of(context).textTheme.headline,),
-                          SizedBox(height: 8,),
-                          Text(problem.symptoms),
-                        ],
-                      ),
-                    )
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Symptomes", style: Theme.of(context).textTheme.headline,),
+                        SizedBox(height: 8,),
+                        Text(problem.symptoms),
+                      ],
+                    ),
                   ),
-                  Card(
+                  PluctisCard(
                     margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Remède", style: Theme.of(context).textTheme.headline,),
-                          SizedBox(height: 8,),
-                          Text(problem.remedy),
-                        ],
-                      ),
-                    )
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Remède", style: Theme.of(context).textTheme.headline,),
+                        SizedBox(height: 8,),
+                        Text(problem.remedy),
+                      ],
+                    ),
                   ),
-                  Card(
+
+                  PluctisCard(
                     margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    padding: EdgeInsets.all(0),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(8),
                       child: Image(
                         // colorBlendMode: _plant.isAlive ? null : BlendMode.darken,
                         // color: _plant.isAlive ? null : Colors.black54,

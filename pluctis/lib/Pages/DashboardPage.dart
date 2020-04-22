@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pluctis/Models/Plant.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Widgets/Plants/PlantDashboardWidget.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -53,22 +55,30 @@ class DashboardPage extends StatelessWidget {
               title: Container(),
             ),
             body: Container(
-              padding: EdgeInsets.only(bottom: 64, left: 8),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // padding: EdgeInsets.only(bottom: 64, left: 8),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage("assets/images/background.png"),
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text("Tableau de Bord", style: Theme.of(context).textTheme.title,),
+                  PluctisTitle(title: "Tableau de Bord"),
                   Expanded(
-                    child: Center(
-                      child: Text("Aucune fleur ne nécessite d'action pour le moment.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline,) 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          'assets/svg/smiling.svg',
+                          semanticsLabel: "Icon",
+                          height: 92,
+                        ),
+                        Text("Aucune fleur de nécessite d'action pour le moment.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.subhead,) 
+                      ],
                     ),
                   ) 
                 ],
@@ -82,59 +92,66 @@ class DashboardPage extends StatelessWidget {
             title: Container(),
           ),
           body: Container(
-            padding: EdgeInsets.only(bottom: 64, left: 8),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+            // padding: EdgeInsets.only(bottom: 64, left: 8),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage("assets/images/background.png"),
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[ 
-                Text("Tableau de bord", style: Theme.of(context).textTheme.title,),
+                PluctisTitle(title: "Tableau de bord"),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         // The plants who really need watering
                         Visibility(
                           visible: _unhappyPlant.isNotEmpty,
                           child: SizedBox(
-                            height: 258,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Card(
-                                margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 8, right: 8),
+                            height: 324,
+                            child: Stack(
+                              children: <Widget>[
+                                PluctisCard(
+                                  margin: EdgeInsets.only(top: 46, left: 8, right: 8, bottom: 16),
+                                  padding: EdgeInsets.only(top: 46.0, left: 16.0, bottom: 8.0, right: 8.0),
                                   child: ListView.builder(
                                     shrinkWrap: true,
-                                    primary: false,
+                                    // primary: false,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: _unhappyPlant.length + 1,
+                                    itemCount: _unhappyPlant.length,
                                     itemBuilder: (context, index) {
-                                      if (index == 0) {
-                                        return SvgPicture.asset(
-                                          'assets/svg/crying.svg',
-                                          semanticsLabel: "Icon",
-                                          height: 112,
-                                        );
-                                      }
-
                                       return ChangeNotifierProvider.value(
-                                        value: _unhappyPlant[index - 1],
+                                        value: _unhappyPlant[index],
                                         child: PlantDashboardWidget(),
                                       );
                                     },
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  left: 16,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: 46,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: SvgPicture.asset(
+                                        'assets/svg/crying.svg',
+                                        semanticsLabel: "Icon",
+                                        width: 92,
+                                        height: 92,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -144,78 +161,92 @@ class DashboardPage extends StatelessWidget {
                         Visibility(
                           visible: _nextPlant.isNotEmpty,
                           child: SizedBox(
-                            height: 258,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Card(
-                                margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 8, right: 8),
+                            height: 324,
+                            child: Stack(
+                              children: <Widget>[
+                                PluctisCard(
+                                  margin: EdgeInsets.only(top: 46, left: 8, right: 8, bottom: 16),
+                                  padding: EdgeInsets.only(top: 46.0, left: 16.0, bottom: 8.0, right: 8.0),
                                   child: ListView.builder(
                                     shrinkWrap: true,
-                                    primary: false,
+                                    // primary: false,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: _nextPlant.length + 1,
+                                    itemCount: _nextPlant.length,
                                     itemBuilder: (context, index) {
-                                      if (index == 0) {
-                                        return SvgPicture.asset(
-                                          'assets/svg/water_cycle.svg',
-                                          semanticsLabel: "Icon",
-                                          height: 112,
-                                        );
-                                      }
-
                                       return ChangeNotifierProvider.value(
-                                        value: _nextPlant[index - 1],
+                                        value: _nextPlant[index],
                                         child: PlantDashboardWidget(),
                                       );
                                     },
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  left: 16,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: 46,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: SvgPicture.asset(
+                                        'assets/svg/water_cycle.svg',
+                                        semanticsLabel: "Icon",
+                                        width: 92,
+                                        height: 92,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        // END: The plants who really need watering
+                        // END: The plants who will need watering
 
-                        // The plants who will need watering
+
+                        // The plants who are happy
                         Visibility(
                           visible: _happyPlant.isNotEmpty,
                           child: SizedBox(
-                            height: 258,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Card(
-                                margin: EdgeInsets.only(top: 8, bottom: 32, left: 16, right: 16),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 8, right: 8),
+                            height: 324,
+                            child: Stack(
+                              children: <Widget>[
+                                PluctisCard(
+                                  margin: EdgeInsets.only(top: 46, left: 8, right: 8, bottom: 16),
+                                  padding: EdgeInsets.only(top: 46.0, left: 16.0, bottom: 8.0, right: 8.0),
                                   child: ListView.builder(
                                     shrinkWrap: true,
-                                    primary: false,
+                                    // primary: false,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: _happyPlant.length + 1,
+                                    itemCount: _happyPlant.length,
                                     itemBuilder: (context, index) {
-                                      if (index == 0) {
-                                        return SvgPicture.asset(
-                                          'assets/svg/smiling.svg',
-                                          semanticsLabel: "Icon",
-                                          height: 112,
-                                        );
-                                      }
-
                                       return ChangeNotifierProvider.value(
-                                        value: _happyPlant[index - 1],
+                                        value: _happyPlant[index],
                                         child: PlantDashboardWidget(),
                                       );
                                     },
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  left: 16,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: 46,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: SvgPicture.asset(
+                                        'assets/svg/smiling.svg',
+                                        semanticsLabel: "Icon",
+                                        width: 92,
+                                        height: 92,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        // END: The plants who really need watering
-
+                        // END: The plants who are happy
 
                       ],
                     ),

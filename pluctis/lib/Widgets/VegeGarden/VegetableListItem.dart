@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pluctis/Helpers/TimelineHelper.dart';
 import 'package:pluctis/Models/Vegetable.dart';
 import 'package:pluctis/Pages/VegeGarden/VegeDetailsPage.dart';
+import 'package:pluctis/Widgets/PluctisCard.dart';
 import 'package:provider/provider.dart';
 
 class VegetableListItem extends StatelessWidget {
@@ -26,7 +27,7 @@ class VegetableListItem extends StatelessWidget {
   }
 
   Widget vegetableCard(BuildContext context, Vegetable vegetable) {
-    return Card(
+    return PluctisCard(
       margin: EdgeInsets.only(left: 46),
       child: Container(
         padding: EdgeInsets.only(left: 62, top: 16, bottom: 0, right: 8),

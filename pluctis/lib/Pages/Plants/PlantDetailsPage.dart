@@ -14,7 +14,7 @@ enum PlantDetailsTabItem { identity, information, health }
 Map<PlantDetailsTabItem, String> plantDetailsTabName = {
   PlantDetailsTabItem.identity: "Identité",
   PlantDetailsTabItem.information: "Informations",
-  PlantDetailsTabItem.health: "Santée",
+  PlantDetailsTabItem.health: "Santé",
 };
 
 Map<PlantDetailsTabItem, int> plantDetailsTabIndex = {
@@ -82,13 +82,13 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
               title: Container(),
             ),
             body: Container(
-              padding: EdgeInsets.only(bottom: 72, left: 8, right: 8),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // margin: EdgeInsets.only(top: 8, left: 8, right: 8),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage("assets/images/background.png"),
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               child: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
@@ -106,13 +106,12 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
   }
 
   _buildItem(PlantDetailsTabItem item) {
-    return Tab(text: plantDetailsTabName[item],);
+    return Tab(child: Text(plantDetailsTabName[item], style: TextStyle(color: Theme.of(context).accentColor)),);
   }
 
   Widget _floatingButton(Plant plant) {
     if (_tabController.index == 0) {
       return Container(
-        padding: EdgeInsets.only(bottom: 64),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -152,17 +151,14 @@ class PlantDetailsPageState extends State<PlantDetailsPage> with SingleTickerPro
       );
     }
 
-    return Container(
-      padding: EdgeInsets.only(bottom: 64),
-      child: FloatingActionButton(
-        tooltip: "Supprimer",
-        backgroundColor: Colors.red,
-        child: Icon(Icons.delete, color: Colors.white,),
-        onPressed: () async {
-          print("Delete plant presseed");
-          await _removePlant(plant);
-        },
-      ),
+    return FloatingActionButton(
+      tooltip: "Supprimer",
+      backgroundColor: Colors.red,
+      child: Icon(Icons.delete, color: Colors.white,),
+      onPressed: () async {
+        print("Delete plant presseed");
+        await _removePlant(plant);
+      },
     );
   }
 

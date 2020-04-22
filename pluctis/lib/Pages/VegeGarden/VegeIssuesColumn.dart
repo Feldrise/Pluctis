@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluctis/Models/Vegetable.dart';
+import 'package:pluctis/Widgets/PluctisTitle.dart';
 import 'package:pluctis/Widgets/VegeGarden/VegeProblemItem.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class VegeIssuesColumn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Problèmes", style: Theme.of(context).textTheme.title,),
+              PluctisTitle(title: "Problèmes"),
               ListView.builder(
                 shrinkWrap: true,
                 primary: false,

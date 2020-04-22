@@ -77,7 +77,7 @@ class NotificationHelper {
         String currentMonthSlug = monthSlug[monthFromNumber[DateTime.now().month]];
 
         if (vegetable.sowMonths.contains(nextMonthSlug) && (!vegetable.sowMonths.contains(currentMonthSlug) || nextMonthInt < DateTime.now().month)) {
-          notificationText =  "Vous allez bientôt pouvoir passer à l'étape de semi pour les ${vegetable.name.toLowerCase()}."; 
+          notificationText =  "Vous allez bientôt pouvoir passer à l'étape de semis pour les ${vegetable.name.toLowerCase()}."; 
           haveNextState = true;
         }
 
