@@ -97,7 +97,7 @@ class VegeDetailsPageState extends State<VegeDetailsPage> with SingleTickerProvi
   }
 
   _buildItem(VegeDetailsTabItem item) {
-    return Tab(text: plantDetailsTabName[item],);
+    return Tab(child: Text(plantDetailsTabName[item], style: TextStyle(color: Theme.of(context).accentColor),));
   }
 
   Widget _floatingButton(Vegetable vegetable) {
