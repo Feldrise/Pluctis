@@ -21,7 +21,9 @@ Vous pouvez modifier pour chaque plantes :
 - Son cycle d'arrosage.
 
 ## Structure
-Le code de l'application se trouve dans le dossier `pluctis`.
+- Le code de l'application se trouve dans le dossier `pluctis`.
+- Le code du site se trouve dans le dossier `site`.
+- Les ressources graphiques se trouves dans le dossier `graphics`.
 
 ## Crédits
 Je remerci particulièrement Lucas pour avoir lancer cette aventure et Elisa pour être la première a donner son avis (parfois difficile à obtenir 😘).
