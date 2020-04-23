@@ -70,7 +70,7 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $tableVegetables (
             $plantColumnId INTEGER PRIMARY KEY,
-            $plantColumnSlug TEXT NOT NULL,
+            $plantColumnSlug TEXT NOT NULL
           )
           ''');
   }

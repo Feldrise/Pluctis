@@ -27,7 +27,7 @@ class ApplicationSettings with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     _brightness = (prefs.getBool("isDark") ?? MediaQuery.of(context).platformBrightness == Brightness.dark) ? Brightness.dark: Brightness.light;
-    _accentColor = Color(prefs.getInt("accentColor") ?? 0xff8e24aa);
+    _accentColor = Color(prefs.getInt("accentColor") ?? 0xffd81b60);
 
     _notificationTime = TimeOfDay(hour: prefs.getInt("notifHour") ?? 10, minute: prefs.getInt("notifMinute") ?? 00);
 

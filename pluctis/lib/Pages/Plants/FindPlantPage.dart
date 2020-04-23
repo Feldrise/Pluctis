@@ -42,7 +42,7 @@ class FindPlantPageState extends State<FindPlantPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Container(),
       ),
       body: Container(
         // padding: EdgeInsets.only(bottom: 72, top: 8, left: 8, right: 8),
