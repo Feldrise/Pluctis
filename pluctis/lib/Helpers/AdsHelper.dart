@@ -40,11 +40,13 @@ class AdsHelper {
       await _initAds();
     }
 
-    bool loaded = await RewardedVideoAd.instance.load(adUnitId: getRewardInteriorAdUnitId(), targetingInfo: _adTargetingInfo);
-    if (loaded) {
-      RewardedVideoAd.instance.listener = listener;
-      await RewardedVideoAd.instance.show();
-    }
+    await RewardedVideoAd.instance.load(adUnitId: getRewardInteriorAdUnitId(), targetingInfo: _adTargetingInfo);
+    RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+      if (event == RewardedVideoAdEvent.loaded) {
+        RewardedVideoAd.instance.listener = listener;
+        RewardedVideoAd.instance.show();
+      }
+    };
   }
 
   Future showInterstitialAd({int chanceToShow}) async {
