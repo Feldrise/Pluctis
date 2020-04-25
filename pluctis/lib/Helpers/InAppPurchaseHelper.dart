@@ -43,7 +43,7 @@ class InAppPurchaseHelper {
 
     if (isAvailable) {
       await _loadProducts();
-      await _loadPreviousPurchase();
+      await loadPreviousPurchase();
     }
     else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,7 +58,11 @@ class InAppPurchaseHelper {
     _products = response.productDetails;
   }
 
-  Future _loadPreviousPurchase() async {
+  Future<bool> loadPreviousPurchase() async {
+    if (_products == null || _subscription == null) {
+      await _initInAppPurchase();
+    }
+
     final QueryPurchaseDetailsResponse response = await InAppPurchaseConnection.instance.queryPastPurchases();
 
     for (PurchaseDetails purchase in response.pastPurchases) {
@@ -79,6 +83,8 @@ class InAppPurchaseHelper {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool("isPremium", false);
     }
+
+    return _isPremium;
   }
 
   void _handlePurchaseUpdates(List<PurchaseDetails> purchaseDetailsList) {

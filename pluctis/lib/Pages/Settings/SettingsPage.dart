@@ -127,6 +127,22 @@ class SettingsPage extends StatelessWidget {
                                     helper.buyPremium();
                                   }
                                 },
+                              ),
+
+                              // Restore purchase button
+                              RaisedButton(
+                                child: Text("Restorer un achat"),
+                                onPressed: () async {
+                                  InAppPurchaseHelper helper = InAppPurchaseHelper.instance;
+                                  bool restored = await helper.loadPreviousPurchase();
+                                  
+                                  if (restored) {
+                                    Scaffold.of(context)..removeCurrentSnackBar()..showSnackBar(SnackBar(content: Text("Votre achat a bien été restoré.", style: TextStyle(color: Colors.white)), backgroundColor: Color(0xff388e3c),));
+                                  }
+                                  else {
+                                    Scaffold.of(context)..removeCurrentSnackBar()..showSnackBar(SnackBar(content: Text("Votre achat ne peut pas être restoré...", style: TextStyle(color: Colors.white),), backgroundColor: Color(0xffd32f2f)));
+                                  }
+                                },
                               )
                             ],
                           ),
