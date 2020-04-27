@@ -99,6 +99,7 @@ class PlantsInfoHelper {
                 plantInfoColunmGoodAnimals,
                 plantInfoColumnDisease,
                 plantInfoColumnBadAnimals],
+      orderBy: "$plantColumnName ASC"
     );
 
     for (var plant in maps) {
