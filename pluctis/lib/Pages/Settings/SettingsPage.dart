@@ -117,15 +117,33 @@ class SettingsPage extends StatelessWidget {
                               SizedBox(height: 32,),
 
                               // Remove ads button
-                              RaisedButton(
-                                child: Text("Retirer les pubs"),
-                                onPressed: () async {
-                                  InAppPurchaseHelper helper = InAppPurchaseHelper.instance;
-                                  bool isPremium = await helper.isPremium();
+                              FutureBuilder(
+                                future: InAppPurchaseHelper.instance.isPremium(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data) {
+                                      return Text("Vous êtes premium ! Merci beaucoup.", textAlign: TextAlign.center,);
+                                    }
+                                    else {
+                                      return RaisedButton(
+                                        child: Text("Retirer les pubs"),
+                                        onPressed: () async {
+                                          InAppPurchaseHelper helper = InAppPurchaseHelper.instance;
+                                          bool isPremium = await helper.isPremium();
 
-                                  if (!isPremium) {
-                                    helper.buyPremium();
+                                          if (!isPremium) {
+                                            helper.buyPremium();
+                                          }
+                                        },
+                                      );
+                                    }
                                   }
+                                  else if(snapshot.hasError) {
+                                    return Text("Nous n'arrivons pas à savoir si vous êtes premium...\n${snapshot.error}");
+                                  }
+
+                                  // By default, show a loading spinner.
+                                  return Center(child: CircularProgressIndicator());
                                 },
                               ),
 
