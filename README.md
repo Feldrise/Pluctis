@@ -5,7 +5,7 @@
 > Le site de Pluctis : [https://pluctis.com](https://pluctis.com)
 
 [![Playstore](https://pluctis.com/assets/img/shape/app_btn1.png)](https://play.google.com/apps/testing/com.feldrise.pluctis)
-[![AppStore](https://pluctis.com/assets/img/shape/app_btn2.png)](https://pluctis.com)
+[![AppStore](https://pluctis.com/assets/img/shape/app_btn2.png)](https://apps.apple.com/us/app/pluctis-gestion-des-plantes/id1505564979?ls=1)
 
 [![Instagram](https://img.mysignature.io/s/v3/c/3/9/c397fcf6-244f-5f38-8219-da39a34db825.png)](https://instagram.com/pluctis_app)
 [![Facebook](https://img.mysignature.io/s/v3/c/5/2/c5295803-bc50-551f-8f62-b8babbed4471.png)](https://facebook.com/pluctis)
