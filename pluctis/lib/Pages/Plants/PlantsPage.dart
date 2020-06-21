@@ -152,6 +152,7 @@ class PlantsPageState extends State<PlantsPage> {
             )
           ),
           floatingActionButton: FloatingActionButton(
+            heroTag: "plants_button",
             tooltip: "Editer",
             child: Icon(Icons.add, color: Colors.white,),
             onPressed: () async {

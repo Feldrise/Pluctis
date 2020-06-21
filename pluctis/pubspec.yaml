@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^4.0.5
+  nice_intro: ^0.1.4
 
   flutter_launcher_icons: ^0.7.3
   flutter_svg: ^0.17.3
@@ -66,6 +67,7 @@ flutter:
   - assets/images/plants/
   - assets/images/vegetables/
   - assets/images/vege_problems/
+  - assets/images/introduction/
   - assets/svg/
   - assets/plants_info.db
   - assets/vege_garden_info.db

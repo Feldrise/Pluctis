@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:pluctis/Models/ApplicationSettings.dart';
 import 'package:pluctis/Models/PlantsList.dart';
 import 'package:pluctis/Models/VegetablesList.dart';
+import 'package:pluctis/Pages/IntroPage.dart';
 import 'package:pluctis/Pages/MainPage.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   // Enable in app purchase
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
         builder: (context, applicationStyle, child) {
           return MaterialApp(
             title: 'Pluctis',
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               brightness: applicationStyle.brightness,
               
@@ -59,7 +63,33 @@ class MyApp extends StatelessWidget {
                 caption: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: applicationStyle.brightness == Brightness.light ? Colors.black87 : Colors.white)
               ),
             ),
-            home: MainPage()
+            home: FutureBuilder(
+              future: SharedPreferences.getInstance(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final SharedPreferences preferences = snapshot.data;
+
+                  bool introduced = preferences.getBool("introduced") ?? false;
+
+                  if (introduced) {
+                    return MainPage();
+                  }
+
+                  return IntroPage();
+                }
+
+                return Container(
+                  color: Theme.of(context).accentColor,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/svg/spring.svg',
+                      semanticsLabel: "Icon",
+                      width: 96, height: 96,
+                    ),
+                  ),
+                );
+              }
+            )
           );
         }
       )

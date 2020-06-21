@@ -116,6 +116,7 @@ class VegeGardenPageState extends State<VegeGardenPage> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            heroTag: "vege_button",
             tooltip: "Ajouter",
             child: Icon(Icons.add, color: Colors.white,),
             onPressed: () async {
