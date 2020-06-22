@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pluctis/Helpers/TimelineHelper.dart';
-import 'package:pluctis/Helpers/VegeInfoHelper.dart';
-import 'package:pluctis/Models/VegeProblem.dart';
+import 'package:pluctis/helpers/timeline_helper.dart';
+import 'package:pluctis/helpers/vege_info_helper.dart';
+import 'package:pluctis/models/vege_problem.dart';
 
 class Vegetable with ChangeNotifier {
   Vegetable({
@@ -37,36 +37,39 @@ class Vegetable with ChangeNotifier {
 
     // convenience constructor to create a Vegetable object
   Vegetable.fromMap(Map<String, dynamic> map) {
-    slug = map[vegeInfoColumnSlug];
-    name = map[vegeInfoColumnName];
-    description = map[vegeInfoColumnDescription];
+    slug = map[vegeInfoColumnSlug] as String;
+    name = map[vegeInfoColumnName] as String;
+    description = map[vegeInfoColumnDescription] as String;
     
-    infoSowing = map[vegeInfoColumnSowing];
-    infoGrowing = map[vegeInfoColumnGrowing];
-    infoHarvesting = map[vegeInfoColumnHarvesting];
+    infoSowing = map[vegeInfoColumnSowing] as String;
+    infoGrowing = map[vegeInfoColumnGrowing] as String;
+    infoHarvesting = map[vegeInfoColumnHarvesting] as String;
 
     if (map[vegeInfoColumnSowMonths] != null) {
-      String sowMonthsString = map[vegeInfoColumnSowMonths];
+      final String sowMonthsString = map[vegeInfoColumnSowMonths] as String;
       sowMonths = sowMonthsString.split(',');
 
-      if (sowMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]]))
+      if (sowMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]])) {
         currentState = "Semis";
+      }
     }
 
     if (map[vegeInfoColumnPlantMonths] != null) {
-      String plantMonthsString = map[vegeInfoColumnPlantMonths];
+      final String plantMonthsString = map[vegeInfoColumnPlantMonths] as String;
       plantMonths = plantMonthsString.split(',');
 
-      if (plantMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]]))
+      if (plantMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]])) {
         currentState = "Plantation";
+      }
     }
 
     if (map[vegeInfoColumnHarvestMonths] != null) {
-      String harvestMonthsString = map[vegeInfoColumnHarvestMonths];
+      final String harvestMonthsString = map[vegeInfoColumnHarvestMonths] as String;
       harvestMonths = harvestMonthsString.split(',');
 
-      if (harvestMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]]))
+      if (harvestMonths.contains(monthSlug[monthFromNumber[DateTime.now().month]])) {
         currentState = "Cueillette";
+      }
     }
 
   }

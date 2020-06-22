@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pluctis/Helpers/DatabaseHelper.dart';
-import 'package:pluctis/Helpers/NotificationHelper.dart';
-import 'package:pluctis/Helpers/PlantsInfoHelper.dart';
-import 'package:pluctis/Helpers/TimelineHelper.dart';
+import 'package:pluctis/helpers/database_helper.dart';
+import 'package:pluctis/helpers/notification_helper.dart';
+import 'package:pluctis/helpers/plants_info_helper.dart';
+import 'package:pluctis/helpers/timeline_helper.dart';
 
 class Plant with ChangeNotifier {
   Plant({this.id,
@@ -55,14 +55,14 @@ class Plant with ChangeNotifier {
   }
 
   void updateWateringFromCycleChange() {
-    TimelineHelper helper = TimelineHelper.instance;
-    NotificationHelper notificationHelper = NotificationHelper.instance;
+    final TimelineHelper helper = TimelineHelper.instance;
+    final NotificationHelper notificationHelper = NotificationHelper.instance;
 
-    DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10, 00);
+    final DateTime now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 10);
     
-    if (nextWatering.difference(now) > Duration(days: 0)) {
-      Duration remaining = nextWatering.difference(now);
-      DateTime lastWatered = nextWatering.subtract(remaining);
+    if (nextWatering.difference(now) > const Duration()) {
+      final Duration remaining = nextWatering.difference(now);
+      final DateTime lastWatered = nextWatering.subtract(remaining);
 
       nextWatering = helper.nextWateringForPlant(lastWatered, this);
       notificationHelper.prepareDailyNotifications();
@@ -104,49 +104,46 @@ class Plant with ChangeNotifier {
     notifyListeners();
   }
 
-  void setNextWatering(DateTime newDate) {
-    nextWatering = newDate;
-  }
-
   // Utility functions
   Future updateDatabase() async {
-    DatabaseHelper helper = DatabaseHelper.instance;
+    final DatabaseHelper helper = DatabaseHelper.instance;
 
     await helper.updatePlant(this);
   }
   
   // convenience constructor to create a Plant object
   Plant.fromMap(Map<String, dynamic> map) {
-    id = map[plantColumnId];
-    slug = map[plantColumnSlug];
-    name = map[plantColumnName];
-    currentLocation = map[plantColumnCurrentLocation];
+    id = map[plantColumnId] as int;
+    slug = map[plantColumnSlug] as String;
+    name = map[plantColumnName] as String;
+    currentLocation = map[plantColumnCurrentLocation] as String;
     
-    winterCycle = map[plantColumnWinterCycle];
-    springCycle = map[plantColumnSpringCycle];
-    summerCycle = map[plantColumnSummerCycle];
-    autumnCycle = map[plantColumnAutumnCycle];
+    winterCycle = map[plantColumnWinterCycle] as int;
+    springCycle = map[plantColumnSpringCycle] as int;
+    summerCycle = map[plantColumnSummerCycle] as int;
+    autumnCycle = map[plantColumnAutumnCycle] as int;
 
-    if (map[plantColumnNextWatering] != null)
-      nextWatering = DateTime.fromMillisecondsSinceEpoch(map[plantColumnNextWatering]);
+    if (map[plantColumnNextWatering] != null) {
+      nextWatering = DateTime.fromMillisecondsSinceEpoch(map[plantColumnNextWatering] as int);
+    }
 
-    infoPlantation = map[plantInfoColunmPlantation];
-    infoWatering = map[plantInfoColunmWatering];
-    infoExposure = map[plantInfoColunmExposure];
+    infoPlantation = map[plantInfoColunmPlantation] as String;
+    infoWatering = map[plantInfoColunmWatering] as String;
+    infoExposure = map[plantInfoColunmExposure] as String;
 
-    goodAnimals = map[plantInfoColunmGoodAnimals];
-    disease = map[plantInfoColumnDisease];
-    badAnimals = map[plantInfoColumnBadAnimals];
+    goodAnimals = map[plantInfoColunmGoodAnimals] as String;
+    disease = map[plantInfoColumnDisease] as String;
+    badAnimals = map[plantInfoColumnBadAnimals] as String;
 
     if (map[plantInfoColumnSourcesLinks] != null) {
-      String sourcesLinkString = map[plantInfoColumnSourcesLinks];
+      final String sourcesLinkString = map[plantInfoColumnSourcesLinks] as String;
       sourcesLinks = sourcesLinkString.split('\\');
     }
   }
 
   // convenience method to create a Map from this Plant object
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
+    final map = <String, dynamic>{
       plantColumnSlug: slug,
       plantColumnName: name,
       plantColumnCurrentLocation: currentLocation,

@@ -1,5 +1,9 @@
 # Pluctis
 
+| Build | Release |
+| _____ | _______ |
+| [![Codemagic build status](https://api.codemagic.io/apps/5ef092fcc0adbf14e8f00278/5ef092fcc0adbf14e8f00277/status_badge.svg)](https://codemagic.io/apps/5ef092fcc0adbf14e8f00278/5ef092fcc0adbf14e8f00277/latest_build) | [![Codemagic build status](https://api.codemagic.io/apps/5ef092fcc0adbf14e8f00278/5ef0931fc0adbf26731b32bf/status_badge.svg)](https://codemagic.io/apps/5ef092fcc0adbf14e8f00278/5ef0931fc0adbf26731b32bf/latest_build) |
+
 ![Bannière Pluctis](https://pluctis.com/assets/img/big_banner.png)
 
 > Le site de Pluctis : [https://pluctis.com](https://pluctis.com)
