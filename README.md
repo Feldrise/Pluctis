@@ -8,7 +8,7 @@
 
 > Le site de Pluctis : [https://pluctis.com](https://pluctis.com)
 
-[![Playstore](https://pluctis.com/assets/img/shape/app_btn1.png)](https://play.google.com/apps/testing/com.feldrise.pluctis)
+[![Playstore](https://pluctis.com/assets/img/shape/app_btn1.png)](https://play.google.com/store/apps/details?id=com.feldrise.pluctis)
 [![AppStore](https://pluctis.com/assets/img/shape/app_btn2.png)](https://apps.apple.com/us/app/pluctis-gestion-des-plantes/id1505564979?ls=1)
 
 [![Instagram](https://img.mysignature.io/s/v3/c/3/9/c397fcf6-244f-5f38-8219-da39a34db825.png)](https://instagram.com/pluctis_app)
