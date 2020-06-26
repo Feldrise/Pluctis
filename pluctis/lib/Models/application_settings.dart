@@ -18,6 +18,8 @@ class ApplicationSettings with ChangeNotifier {
 
   var _accentColor = const Color(0xffd81b60);
 
+  bool _useOldDashboard = false;
+
   TimeOfDay _notificationTime = const TimeOfDay(hour: 10, minute: 00);
 
   Future initSettings(BuildContext context) async {
@@ -31,6 +33,8 @@ class ApplicationSettings with ChangeNotifier {
     _accentColor = Color(prefs.getInt("accentColor") ?? 0xffd81b60);
 
     _notificationTime = TimeOfDay(hour: prefs.getInt("notifHour") ?? 10, minute: prefs.getInt("notifMinute") ?? 00);
+
+    _useOldDashboard = prefs.getBool("useOldDashboard") ?? false;
 
     _initialized = true;
     notifyListeners();
@@ -88,6 +92,16 @@ class ApplicationSettings with ChangeNotifier {
     prefs.setInt("notifMinute", _notificationTime.minute);
 
     await NotificationHelper.instance.prepareDailyNotifications();
+    notifyListeners();
+  }
+
+  bool get useOldDashboard => _useOldDashboard;
+  Future changeUseOfDashboard({bool useOldDashboard}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool("useOldDashboard", useOldDashboard);
+    _useOldDashboard = useOldDashboard;
+
     notifyListeners();
   }
 }

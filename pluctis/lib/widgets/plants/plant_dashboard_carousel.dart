@@ -1,9 +1,9 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:pluctis/models/plant.dart';
-import 'package:pluctis/widgets/plants/plant_dashboard_widget.dart';
+import 'package:pluctis/widgets/plants/plant_dashboard_carousel_card.dart';
 import 'package:provider/provider.dart';
-
-import 'dart:math' as math;
 
 class DashboardCarousel extends StatefulWidget {
   const DashboardCarousel({Key key, @required this.allPlants}) : super(key: key);
@@ -61,7 +61,7 @@ class _DashboardCarouselState extends State<DashboardCarousel> {
           angle: math.pi * value,
           child: ChangeNotifierProvider.value(
             value: widget.allPlants[index],
-            child: PlantDashboardWidget(),
+            child: PlantDashboardCarouselCard(),
           )
         );
       },

@@ -148,6 +148,22 @@ class SettingsPage extends StatelessWidget {
                                 }
                               },
                               child: const Text("Restorer un achat"),
+                            ),
+
+                            const Divider(
+                              color: Colors.black12,
+                              height: 20,
+                              thickness: 3,
+                              indent: 20,
+                              endIndent: 20,
+                            ),
+
+                            CheckboxListTile(
+                              title: const Text("Utiliser l'ancien tableau de bord"),
+                              value: applicationSettings.useOldDashboard,
+                              onChanged: (bool newValue) {
+                                applicationSettings.changeUseOfDashboard(useOldDashboard: newValue);
+                              },
                             )
                           ],
                         ),
